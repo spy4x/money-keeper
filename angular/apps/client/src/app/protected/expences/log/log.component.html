@@ -1,0 +1,27 @@
+<mat-button-toggle-group [value]="mode" (change)="changePage($event)" class="m-b-1">
+  <mat-button-toggle value="logs">
+    Logs
+  </mat-button-toggle>
+  <mat-button-toggle value="statistics">
+    Statistics
+  </mat-button-toggle>
+</mat-button-toggle-group>
+
+<ng-container [ngSwitch]="mode">
+  <ng-container *ngSwitchCase="'logs'">
+    <div class="items">
+      <mat-card *ngFor="let expense of expenses$ | async" class="item">
+        <mat-card-header>
+          <mat-card-title>{{expense.comment}}</mat-card-title>
+          <mat-card-subtitle>__category__</mat-card-subtitle>
+        </mat-card-header>
+        <div>
+          {{expense.value}} __currency__
+        </div>
+      </mat-card>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="'statistics'">
+    <h4>Not implemented yet.</h4>
+  </ng-container>
+</ng-container>

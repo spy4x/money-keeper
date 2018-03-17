@@ -1,0 +1,21 @@
+@import "../../../../styles"
+
+mk-accounts
+  mat-list-item
+    @extend .cursor-pointer
+
+    &:hover
+      background-color: #d8d8d863
+
+    $border-width: 2px
+    .mat-list-avatar
+      border: $border-width solid transparent
+    &.active
+      background-color: #d1e7ff
+      .mat-list-avatar
+        border: $border-width solid blue
+    div.mat-list-avatar
+      border: $border-width solid black
+      display: flex
+      align-items: center
+      justify-content: center

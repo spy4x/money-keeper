@@ -1,0 +1,100 @@
+{
+  "$schema": "./node_modules/@nrwl/schematics/src/schema.json",
+  "project": {
+    "name": "money-keeper",
+    "npmScope": "money-keeper",
+    "latestMigration": "20180227-cleanup-scripts"
+  },
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "./tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/client/src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/client/e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "apps": [
+    {
+      "name": "client",
+      "root": "apps/client/src",
+      "outDir": "../dist/angular/apps/client",
+      "assets": [
+        "assets",
+        "favicon.ico",
+        "manifest.json"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "../../../test.js",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "../../../tsconfig.spec.json",
+      "prefix": "mk",
+      "styles": [
+        "styles.sass",
+        "../../../node_modules/material-design-icons/iconfont/material-icons.css"
+      ],
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    },
+    {
+      "name": "$workspaceRoot",
+      "root": ".",
+      "appRoot": ""
+    }
+  ],
+  "defaults": {
+    "schematics": {
+      "collection": "@nrwl/schematics"
+    },
+    "styleExt": "sass",
+    "class": {
+      "spec": true
+    },
+    "component": {
+      "changeDetection": "OnPush",
+      "viewEncapsulation": "None",
+      "spec": false
+    },
+    "directive": {
+      "flat": false,
+      "spec": true
+    },
+    "pipe": {
+      "flat": false,
+      "spec": true
+    },
+    "service": {
+      "flat": false,
+      "spec": true
+    },
+    "guard": {
+      "flat": false,
+      "spec": true
+    }
+  },
+  "packageManager": "yarn",
+  "warnings": {
+    "typescriptMismatch": false
+  }
+}

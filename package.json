@@ -1,0 +1,15 @@
+{
+  "name": "money-keeper",
+  "version": "0.0.0",
+  "description": "Money Keeper PWA",
+  "repository": "git@github.com:spy4x/money-keeper.git",
+  "author": "Anton Shubin <2spy4x@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "postinstall": "chmod 744 pre-commit && cp pre-commit .git/hooks/pre-commit && ./node_modules/.bin/nx postinstall"
+  },
+  "devDependencies": {
+    "prettier": "^1.11.1"
+  }
+}

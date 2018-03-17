@@ -1,0 +1,47 @@
+$sign-in-height: 750px
+mk-home
+  position: absolute
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  mat-card
+    flex: 0 0 $sign-in-height
+    width: 300px
+    display: flex !important
+    flex-direction: column
+    align-items: center
+    justify-content: space-around
+    text-align: justify
+    hr
+      margin-top: 20px
+      margin-bottom: 20px
+    h1
+      font-size: 24px
+
+    > img
+      height: 150px
+
+    .authors
+      .avatars
+        display: flex
+        align-items: center
+        justify-content: space-around
+        img
+          border-radius: 50%
+      .message
+        margin-top: 0
+        margin-bottom: 0
+      .header
+        text-align: center
+
+@media screen and (max-height: ($sign-in-height+100px))
+  mk-home
+    display: block
+    mat-card
+      margin: 0 auto
+      box-shadow: none !important

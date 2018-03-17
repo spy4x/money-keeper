@@ -1,0 +1,26 @@
+<div class="items">
+  <div *ngFor="let category of categories | async"
+       (click)="addExpense(category)"
+       class="item">
+    <button mat-fab>
+      <mat-icon>{{category.icon}}</mat-icon>
+    </button>
+    <span>{{category.name | truncate:9}}</span>
+  </div>
+  <div class="item">
+    <button mat-fab
+            color="grey"
+            class="add-category-button"
+            (click)="addCategory()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <span>Add</span>
+  </div>
+</div>
+
+<div class="actions">
+  <button mat-raised-button color="primary" routerLink="/expenses/add"
+          class="main-action-button">
+    ADD EXPENSE
+  </button>
+</div>
