@@ -68,3 +68,24 @@ export const getExpensesForActiveGroup = createSelector(
   getExpensesItemsForActiveGroup,
   (ids, items) => ids.map(id => items[id])
 );
+export const getExpensesForActiveGroupGroupedAndSortedByDate = createSelector(
+  getExpensesForActiveGroup,
+  expenses => {
+    const groupedExpenses = expenses
+      .sort((a, b) => a.createdAt < b.createdAt ? 1 : -1)
+      .reduce((acc, cur) => {
+        const year = cur.createdAt.getFullYear();
+        const month = cur.createdAt.getMonth() + 1;
+        const day = cur.createdAt.getDate();
+        const dateStr = `${year}-${month}-${day}`;
+        if (acc[dateStr]) {
+          acc[dateStr].push(cur);
+        } else {
+          acc[dateStr] = [cur];
+        }
+        return acc;
+      }, {});
+    const keys = Object.keys(groupedExpenses);
+    return keys.map(key => ({date: key, items:groupedExpenses[key]})).sort((a, b) => a < b ? 1 : -1);
+  }
+);

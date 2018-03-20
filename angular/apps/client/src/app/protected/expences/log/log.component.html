@@ -10,15 +10,18 @@
 <ng-container [ngSwitch]="mode">
   <ng-container *ngSwitchCase="'logs'">
     <div class="items">
-      <mat-card *ngFor="let expense of expenses$ | async" class="item">
-        <mat-card-header>
-          <mat-card-title>{{expense.comment}}</mat-card-title>
-          <mat-card-subtitle>{{getCategoryName$(expense.category) | async}}</mat-card-subtitle>
-        </mat-card-header>
-        <div class="amount">
-          {{expense.value}} {{getCurrencySymbol$(expense.currency) | async}}
-        </div>
-      </mat-card>
+      <div class="item-group" *ngFor="let expenseGroup of expensesGroup$ | async">
+        <h4 class="date m-b-1">{{expenseGroup.date | date:'d LLL'}}</h4>
+        <mat-card *ngFor="let expense of expenseGroup.items" class="item">
+          <mat-card-header>
+            <mat-card-title>{{expense.comment}}</mat-card-title>
+            <mat-card-subtitle>{{getCategoryName$(expense.category) | async}}</mat-card-subtitle>
+          </mat-card-header>
+          <div class="amount">
+            {{expense.value}} {{getCurrencySymbol$(expense.currency) | async}}
+          </div>
+        </mat-card>
+      </div>
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="'statistics'">

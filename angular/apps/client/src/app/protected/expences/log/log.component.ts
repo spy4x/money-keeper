@@ -1,12 +1,16 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {MatButtonToggleChange} from '@angular/material';
 import {select, Store} from '@ngrx/store';
-import {getCategoriesItemsForActiveGroup, getCurrenciesItems, getExpensesForActiveGroup} from '../+store/selectors';
-import {AppState} from '../../../+core/store/app.state';
-import {Observable} from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
-import DocumentReference = firebase.firestore.DocumentReference;
+import {Observable} from 'rxjs/Observable';
 import {filter, map} from 'rxjs/operators';
+import {
+  getCategoriesItemsForActiveGroup,
+  getCurrenciesItems,
+  getExpensesForActiveGroupGroupedAndSortedByDate
+} from '../+store/selectors';
+import {AppState} from '../../../+core/store/app.state';
+import DocumentReference = firebase.firestore.DocumentReference;
 
 
 @Component({
@@ -18,7 +22,7 @@ import {filter, map} from 'rxjs/operators';
 })
 export class LogComponent {
   mode: 'logs' | 'statistics' = 'logs';
-  expenses$ = this.store.pipe(select(getExpensesForActiveGroup));
+  expensesGroup$ = this.store.pipe(select(getExpensesForActiveGroupGroupedAndSortedByDate));
 
   constructor(private store: Store<AppState>) {
   }
@@ -27,7 +31,7 @@ export class LogComponent {
     this.mode = change.value;
   }
 
-  getCurrencySymbol$(currency: DocumentReference): Observable<string>{
+  getCurrencySymbol$(currency: DocumentReference): Observable<string> {
     return this.store.pipe(
       select(getCurrenciesItems),
       map(items => items[currency.id]),
@@ -36,7 +40,7 @@ export class LogComponent {
     );
   }
 
-  getCategoryName$(category: DocumentReference): Observable<string>{
+  getCategoryName$(category: DocumentReference): Observable<string> {
     return this.store.pipe(
       select(getCategoriesItemsForActiveGroup),
       map(items => items[category.id]),
