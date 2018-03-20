@@ -13,10 +13,10 @@
       <mat-card *ngFor="let expense of expenses$ | async" class="item">
         <mat-card-header>
           <mat-card-title>{{expense.comment}}</mat-card-title>
-          <mat-card-subtitle>__category__</mat-card-subtitle>
+          <mat-card-subtitle>{{getCategoryName$(expense.category) | async}}</mat-card-subtitle>
         </mat-card-header>
-        <div>
-          {{expense.value}} __currency__
+        <div class="amount">
+          {{expense.value}} {{getCurrencySymbol$(expense.currency) | async}}
         </div>
       </mat-card>
     </div>
