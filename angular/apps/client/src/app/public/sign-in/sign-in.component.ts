@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
@@ -13,13 +12,12 @@ import * as firebase from 'firebase/app';
 })
 export class SignInComponent {
 
-  constructor(private router: Router, private afAuth: AngularFireAuth) {
+  constructor(private afAuth: AngularFireAuth) {
   }
 
   signIn(): void {
     this.afAuth.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(() => this.router.navigate(['/']))
       .catch(console.error);
   }
 }

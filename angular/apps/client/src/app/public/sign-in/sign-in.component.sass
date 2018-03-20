@@ -1,28 +1,10 @@
-$sign-in-height: 200px
 mk-sign-in
-  position: absolute
-  left: 0
-  right: 0
-  top: 0
-  bottom: 0
+  min-height: 100vh
   display: flex
-  flex-direction: column
   align-items: center
   justify-content: center
   mat-card
-    flex: 0 0 $sign-in-height
-    display: flex !important
-    flex-direction: column
-    align-items: center
-    justify-content: space-around
-    text-align: justify
+    text-align: center
     .sign-in-with-google-button
       span.text
         margin-left: 10px
-
-@media screen and (max-height: ($sign-in-height+100px))
-  mk-sign-in
-    display: block
-    mat-card
-      margin: 0 auto
-      box-shadow: none !important

@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {switchMap, tap} from 'rxjs/operators';
-import {ActiveGroupService} from '../../active-group.service';
 import {MatButtonToggleChange} from '@angular/material';
+import {select, Store} from '@ngrx/store';
+import {getExpensesForActiveGroup} from '../+store/selectors';
+import {AppState} from '../../../+core/store/app.state';
 
 
 @Component({
@@ -14,13 +14,9 @@ import {MatButtonToggleChange} from '@angular/material';
 })
 export class LogComponent {
   mode: 'logs' | 'statistics' = 'logs';
-  expenses$ = this.activeOwnerService.asPath$.pipe(
-    switchMap(path => this.db.collection(`${path}/expenses`).valueChanges()),
-    tap(expenses => console.log('expenses:', expenses))
-  );
+  expenses$ = this.store.pipe(select(getExpensesForActiveGroup));
 
-  constructor(private db: AngularFirestore,
-              private activeOwnerService: ActiveGroupService) {
+  constructor(private store: Store<AppState>) {
   }
 
   changePage(change: MatButtonToggleChange) {

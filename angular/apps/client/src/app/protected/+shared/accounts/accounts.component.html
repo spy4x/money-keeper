@@ -1,10 +1,10 @@
-<mat-list *ngIf="activeOwnerPath$ | async as activeOwnerPath">
+<mat-list *ngIf="activeGroup$ | async as activeGroup">
   <ng-container *ngIf="groups$ | async as groups">
     <ng-container *ngIf="user$ | async as user">
       <ng-container *ngFor="let group of groups">
         <mat-list-item *ngIf="group.isPersonal; else regularGroup"
-                       [class.active]="activeOwnerPath === '/groups/' + group.id"
-                       (click)="setActiveOwnerPath('/groups/' + group.id)">
+                       [class.active]="activeGroup.id === group.id"
+                       (click)="setActiveGroup(group)">
           <img matListAvatar [src]="user.photoURL" [alt]="user.displayName || user.email">
           <h4 matLine>{{user.displayName || user.email}}</h4>
           <button mat-icon-button (click)="signOut()">
@@ -12,8 +12,8 @@
           </button>
         </mat-list-item>
         <ng-template #regularGroup>
-          <mat-list-item [class.active]="activeOwnerPath === '/groups/' + group.id"
-                         (click)="setActiveOwnerPath('/groups/' + group.id)">
+          <mat-list-item [class.active]="activeGroup.id === group.id"
+                         (click)="setActiveGroup(group)">
             <div matListAvatar>
               <mat-icon mat-list-icon>group</mat-icon>
             </div>

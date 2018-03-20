@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {CategoriesCreateAction} from '../+store/actions/categoriesCreate.action';
+import {AppState} from '../../../+core/store/app.state';
 import {MyErrorStateMatcher} from '../../../+shared/helpers/forms.helper';
-import {ActiveGroupService} from '../../active-group.service';
-import {ActiveUserService} from '../../active-user.service';
-import {Category} from '../../data-access/category.interface';
-import {AngularFirestore} from 'angularfire2/firestore';
+import {Category} from '../../../../../../../../+shared/types/category.interface';
 
 
 @Component({
@@ -18,13 +18,10 @@ import {AngularFirestore} from 'angularfire2/firestore';
 export class MainCreateCategoryComponent implements OnInit {
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
-  categoriesCollection = this.db.collection<Category>(`${this.activeGroupService.getPath()}/categories`);
 
   constructor(private router: Router,
               private fb: FormBuilder,
-              private db: AngularFirestore,
-              private activeGroupService: ActiveGroupService,
-              private activeUserService: ActiveUserService) {
+              private store: Store<AppState>) {
   }
 
   ngOnInit() {
@@ -37,22 +34,9 @@ export class MainCreateCategoryComponent implements OnInit {
     }
     const category: Category = {
       name: this.form.value.title,
-      icon: this.form.value.icon || 'help_outline',
-      createdAt: new Date(),
-      createdBy: this.activeUserService.getRef(),
+      icon: this.form.value.icon || 'help_outline'
     };
-
-    console.log(`category:`, category);
-
-
-    this.categoriesCollection.add(category)
-      .then(docRef => {
-        console.log('Category added: ', docRef.id);
-        this.router.navigate(['/expenses']);
-      })
-      .catch(function (error) {
-        console.error('Error adding category: ', error);
-      });
+    this.store.dispatch(new CategoriesCreateAction(category));
   }
 
   isSubmitDisabled(): boolean {

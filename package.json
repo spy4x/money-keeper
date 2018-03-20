@@ -10,6 +10,7 @@
     "postinstall": "chmod 744 pre-commit && cp pre-commit .git/hooks/pre-commit && ./node_modules/.bin/nx postinstall"
   },
   "devDependencies": {
+    "firebase": "^4.11.0",
     "prettier": "^1.11.1"
   }
 }

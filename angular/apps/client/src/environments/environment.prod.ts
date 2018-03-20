@@ -1,5 +1,8 @@
-export const environment = {
-  production: true,
+import {Environment} from './environment.interface';
+
+
+export const environment: Environment = {
+  type: 'prod',
   firebase: {
     apiKey: 'AIzaSyACNXXIaypsdkzXarU4j_dEajpkgVez_wc',
     authDomain: 'money-keeper-pwa.firebaseapp.com',

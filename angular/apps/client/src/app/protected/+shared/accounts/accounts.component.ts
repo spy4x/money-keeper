@@ -1,11 +1,12 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
+import {select, Store} from '@ngrx/store';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {filter, map, switchMap, tap} from 'rxjs/operators';
-import {unwrapCollectionSnapshotChanges, unwrapDocSnapshotChanges} from '../../../+shared/helpers/firestore.helper';
-import {ActiveGroupService} from '../../active-group.service';
-import {Group} from '../../data-access/group.interface';
+import {getActiveGroup, getGroups} from '../../+store/selectors';
+import {AppState} from '../../../+core/store/app.state';
+import {getUser} from '../../../+core/store/selectors';
+import {Group} from '../../../../../../../../+shared/types/group.interface';
+import {GroupsSetActiveItemIdAction} from '../../+store/actions/groupsSetActiveItemId.action';
 
 
 @Component({
@@ -16,35 +17,23 @@ import {Group} from '../../data-access/group.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountsComponent {
-  user$ = this.afAuth.authState.pipe(
-    switchMap(user => this.db.doc(`users/${user.uid}`).snapshotChanges()),
-    map(unwrapDocSnapshotChanges)
-  );
-  groups$ = this.afAuth.authState.pipe(
-    filter(v => !!v),
-    switchMap(user => this.db
-      .collection<Group>('groups', ref => ref.where(`roles.${user.uid}`, '>', ''))
-      .snapshotChanges()
-    ),
-    map(unwrapCollectionSnapshotChanges),
-  );
-  activeOwnerPath$ = this.activeOwnerService.asPath$;
+  user$ = this.store.pipe(select(getUser));
+  activeGroup$ = this.store.pipe(select(getActiveGroup));
+  groups$ = this.store.pipe(select(getGroups));
 
   constructor(private afAuth: AngularFireAuth,
               private router: Router,
-              private db: AngularFirestore,
-              private activeOwnerService: ActiveGroupService) {
+              private store: Store<AppState>) {
   }
 
   signOut(): void {
     this.afAuth.auth
       .signOut()
-      .then(() => this.router.navigate(['/public/sign-in']))
       .catch(console.error);
   }
 
-  setActiveOwnerPath(path: string): void {
-    this.activeOwnerService.setPath(path);
-    this.router.navigate(['/expenses'])
+  setActiveGroup(group: Group): void {
+    this.store.dispatch(new GroupsSetActiveItemIdAction(group.id));
+    this.router.navigate(['/expenses']);
   }
 }

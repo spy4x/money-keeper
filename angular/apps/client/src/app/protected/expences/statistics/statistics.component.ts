@@ -11,7 +11,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {map} from 'rxjs/operators';
 import {Subscription} from 'rxjs/Subscription';
 import {unwrapCollectionSnapshotChanges} from '../../../+shared/helpers/firestore.helper';
-import {Expense} from '../../data-access/expense.interface';
+import {Expense} from '../../../../../../../../+shared/types/expense.interface';
 
 
 @Component({

@@ -1,15 +1,16 @@
 import * as firebase from 'firebase/app';
 import DocumentReference = firebase.firestore.DocumentReference;
 
+
 export interface Expense {
   id?: string;
   value: number;
-  currency: DocumentReference
+  currency: DocumentReference;
   category: DocumentReference;
   comment: string;
   createdAt: Date;
-  createdBy: DocumentReference;
-  tags:{
-    [key:string]: true
+  createdBy?: DocumentReference;
+  tags: {
+    [key: string]: true
   }
 }

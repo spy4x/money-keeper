@@ -9,6 +9,7 @@ import {ExpencesRoutingModule} from './expences-routing.module';
 import {ExpencesComponent} from './expences.component';
 import {LogComponent} from './log/log.component';
 import {StatisticsComponent} from './statistics/statistics.component';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import {StatisticsComponent} from './statistics/statistics.component';
     ExpencesRoutingModule,
     SharedModule,
     ProtectedSharedModule,
+    NgxChartsModule
   ],
   declarations: [CategoriesComponent, AddExpenceComponent, LogComponent, StatisticsComponent, ExpencesComponent, MainCreateCategoryComponent]
 })

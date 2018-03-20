@@ -6,6 +6,6 @@ export interface Category {
   id?: string;
   name: string;
   icon: string;
-  createdAt: Date;
-  createdBy: DocumentReference;
+  createdAt?: Date;
+  createdBy?: DocumentReference;
 }

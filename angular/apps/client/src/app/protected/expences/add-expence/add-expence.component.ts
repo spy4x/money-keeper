@@ -1,14 +1,14 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {filter, map, switchMap} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
+import {select, Store} from '@ngrx/store';
+import {filter, map} from 'rxjs/operators';
 import {Subscription} from 'rxjs/Subscription';
-import {unwrapCollectionSnapshotChanges} from '../../../+shared/helpers/firestore.helper';
+import {ExpensesCreateAction} from '../+store/actions/expensesCreate.action';
+import {getCategoriesForActiveGroup, getCurrencies} from '../+store/selectors';
+import {AppState} from '../../../+core/store/app.state';
 import {MyErrorStateMatcher} from '../../../+shared/helpers/forms.helper';
-import {ActiveGroupService} from '../../active-group.service';
-import {ActiveUserService} from '../../active-user.service';
-import {Expense} from '../../data-access/expense.interface';
+import {Expense} from '../../../../../../../../+shared/types/expense.interface';
 
 
 @Component({
@@ -20,25 +20,14 @@ import {Expense} from '../../data-access/expense.interface';
 })
 export class AddExpenceComponent implements OnInit, OnDestroy {
   form: FormGroup;
-  expensesCollection = this.db.collection<Expense>(`${this.activeGroupService.getPath()}/expenses`);
-  expenses$ = this.activeGroupService.asPath$.pipe(
-    switchMap(groupPath => this.db.collection(`${groupPath}/expenses`).snapshotChanges()),
-    map(unwrapCollectionSnapshotChanges)
-  );
-  categories$ = this.activeGroupService.asPath$.pipe(
-    switchMap(groupPath => this.db.collection(`${groupPath}/categories`).snapshotChanges()),
-    map(unwrapCollectionSnapshotChanges)
-  );
-  currencies$ = this.db.collection(`currencies`).snapshotChanges().pipe(map(unwrapCollectionSnapshotChanges));
+  categories$ = this.store.pipe(select(getCategoriesForActiveGroup));
+  currencies$ = this.store.pipe(select(getCurrencies));
   matcher = new MyErrorStateMatcher();
   sub = new Subscription();
 
-  constructor(private router: Router,
-              private fb: FormBuilder,
-              private db: AngularFirestore,
-              private activeGroupService: ActiveGroupService,
-              private activeUserService: ActiveUserService,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private fb: FormBuilder,
+              private activatedRoute: ActivatedRoute,
+              private store: Store<AppState>) {
   }
 
   ngOnInit() {
@@ -61,30 +50,17 @@ export class AddExpenceComponent implements OnInit, OnDestroy {
     }
     const expense: Expense = {
       value: +this.form.value.value,
-      category: this.db.doc(`${this.activeGroupService.getPath()}/categories/${this.form.value.category}`).ref,
-      currency: this.db.doc(`currencies/${this.form.value.currency}`).ref,
+      category: this.form.value.category,
+      currency: this.form.value.currency,
       comment: this.form.value.comment,
-      createdBy: this.activeUserService.getRef(),
       createdAt: this.form.value.date,
       tags: {}
     };
-    console.log(`expense:`, expense);
-    this.expensesCollection.add(expense)
-      .then(docRef => {
-        console.log('Expense added: ', docRef.id);
-        this.router.navigate(['/expenses/logs']);
-      })
-      .catch(function (error) {
-        console.error('Error adding expense: ', error);
-      });
+    this.store.dispatch(new ExpensesCreateAction(expense));
   }
 
   isSubmitDisabled(): boolean {
     return this.form.invalid;
-  }
-
-  goToMainPage() {
-    this.router.navigate(['/']);
   }
 
   initForm() {

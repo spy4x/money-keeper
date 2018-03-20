@@ -1,10 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
-import {AngularFireAuth} from 'angularfire2/auth';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {filter, map, switchMap} from 'rxjs/operators';
-import {unwrapCollectionSnapshotChanges} from '../../../+shared/helpers/firestore.helper';
-import {ActiveGroupService} from '../../active-group.service';
+import {select, Store} from '@ngrx/store';
+import {getCategoriesForActiveGroup} from '../+store/selectors';
+import {AppState} from '../../../+core/store/app.state';
 
 
 @Component({
@@ -15,22 +13,10 @@ import {ActiveGroupService} from '../../active-group.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesComponent implements OnInit {
-  categories = this.activeOwnerService
-    .asPath$
-    .pipe(
-      filter(v => !!v),
-      switchMap(path => this.db.collection(`${path}/categories`)
-        .snapshotChanges()
-        .pipe(
-          map(unwrapCollectionSnapshotChanges)
-        )
-      )
-    );
+  categories$ = this.store.pipe(select(getCategoriesForActiveGroup));
 
-  constructor(private db: AngularFirestore,
-              private afAuth: AngularFireAuth,
-              private router: Router,
-              private activeOwnerService: ActiveGroupService) {
+  constructor(private store: Store<AppState>,
+              private router: Router) {
   }
 
   ngOnInit() {
