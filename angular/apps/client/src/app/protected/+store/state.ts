@@ -1,12 +1,13 @@
 import {Category} from '../../../../../../../+shared/types/category.interface';
 import {Group} from '../../../../../../../+shared/types/group.interface';
 import {Expense} from '../../../../../../../+shared/types/expense.interface';
+import {Currency} from '../../../../../../../+shared/types/currency.interface';
 
 
 export interface ProtectedState {
   currencies: {
     ids: string[];
-    items: { [id: string]: Group };
+    items: { [id: string]: Currency };
   }
   groups: {
     ids: string[];
