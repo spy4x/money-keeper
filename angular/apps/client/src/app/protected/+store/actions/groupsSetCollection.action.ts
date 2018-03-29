@@ -1,12 +1,17 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {filter, map} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {filter, map, withLatestFrom} from 'rxjs/operators';
+import {AppState} from '../../../+core/store/app.state';
+import {getUser, getUserConfig} from '../../../+core/store/selectors';
 import {BaseAction, generateActionType, setStateProperties} from '../../../+shared/helpers/state.helper';
 import {Group} from '../../../../../../../../+shared/types/group.interface';
-import {ExpensesInitAction} from '../../expences/+store/actions/init.action';
+import {User} from '../../../../../../../../+shared/types/user.interface';
 import {FEATURE_NAME} from '../module';
 import {ProtectedState} from '../state';
 import {GroupsSetActiveItemIdAction} from './groupsSetActiveItemId.action';
+import {LoadGroupDataAction} from './loadGroupData.action';
+import {UserConfig} from '../../../../../../../../+shared/types/userConfig.interface';
 
 
 const type = generateActionType(FEATURE_NAME, 'Set groups');
@@ -29,22 +34,31 @@ export class GroupsSetCollectionAction implements BaseAction<ProtectedState> {
 
 
 @Injectable()
-export class SetGroupsActionEffect {
+export class GroupsSetCollectionActionEffect {
 
   @Effect() setActiveGroup$ = this.actions$
     .ofType(type)
     .pipe(
       filter((action: GroupsSetCollectionAction) => !!action.payload),
-      map((action: GroupsSetCollectionAction) => action.payload.find(group => group.isPersonal)),
-      map(group => new GroupsSetActiveItemIdAction(group.id))
+      withLatestFrom(this.store),
+      map(([action, state]: [GroupsSetCollectionAction, AppState]) => ({groups: action.payload, userConfig: getUserConfig(state)})),
+      map((res: { groups: Group[], userConfig: UserConfig }) =>
+        res.groups.sort((a, b) => a.id === res.userConfig.activeGroupId
+          ? -1
+          : b.id === res.userConfig.activeGroupId
+            ? 1
+            : 0)),
+      map(groups => groups[0]),
+      map(group => new GroupsSetActiveItemIdAction({groupId: group.id, shouldNotify: false}))
     );
 
-  @Effect() notifyExpensesModule$ = this.actions$
+  @Effect() loadGroupData$ = this.actions$
     .ofType(type)
     .pipe(
-      map(() => new ExpensesInitAction())
+      map(() => new LoadGroupDataAction())
     );
 
-  constructor(private actions$: Actions) {
+  constructor(private actions$: Actions,
+              private store: Store<AppState>,) {
   }
 }

@@ -1,0 +1,82 @@
+<mk-header>
+  <span>Expenses</span>
+</mk-header>
+
+<!--<mat-button-toggle-group [value]="mode" (change)="changePage($event)" class="m-b-1">-->
+  <!--<mat-button-toggle value="logs">-->
+    <!--Logs-->
+  <!--</mat-button-toggle>-->
+  <!--<mat-button-toggle value="statistics">-->
+    <!--Statistics-->
+  <!--</mat-button-toggle>-->
+<!--</mat-button-toggle-group>-->
+
+<!--<mat-tab-group class="demo-tab-group">-->
+  <!--<mat-tab label="Tab 1">-->
+    <!--<div class="demo-tab-content">-->
+      <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.-->
+      <!--Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.-->
+      <!--In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,-->
+      <!--feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,-->
+      <!--orci enim rutrum enim, vel tempor sapien arcu a tellus.-->
+    <!--</div>-->
+  <!--</mat-tab>-->
+  <!--<mat-tab label="Tab 2">-->
+    <!--<div class="demo-tab-content">-->
+      <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.-->
+      <!--Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus.-->
+      <!--In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec,-->
+      <!--feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,-->
+      <!--orci enim rutrum enim, vel tempor sapien arcu a tellus.-->
+    <!--</div>-->
+  <!--</mat-tab>-->
+
+<ng-container [ngSwitch]="mode">
+  <ng-container *ngSwitchCase="'logs'">
+    <div class="items">
+      <div class="item-group" *ngFor="let expenseGroup of expensesGroup$ | async; let lastGroup = last">
+        <h4 class="date m-b-1">
+          <span>{{expenseGroup.date | date:'d LLLL'}}</span>
+          <span>Total: {{expenseGroup.total}}</span>
+        </h4>
+        <ng-container *ngFor="let expense of expenseGroup.items">
+          <mat-card *ngIf="getAuthor$(expense.createdBy) | async as author" class="item" [routerLink]="['/expenses/' + expense.id]">
+            <mat-card-header>
+              <div mat-card-avatar *ngIf="isMoreThanOneUserInGroup$() | async">
+                <img [src]="author.photoURL" class="avatar avatar--sm">
+              </div>
+              <mat-card-title *ngIf="expense.comment">{{expense.comment}}</mat-card-title>
+              <mat-card-subtitle>
+                <div *ngIf="isMoreThanOneUserInGroup$() | async"
+                     class="text-with-icon">
+                  <span>{{author.displayName | truncate:20}} in</span>
+                </div>
+                <div *ngIf="getCategory$(expense.category) | async as category"
+                     class="text-with-icon">
+                  <mat-icon class="mat-icon--xs">{{category.icon}}</mat-icon>
+                  <span>{{category.name | truncate:20}}</span>
+                </div>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <div class="amount">
+              <div>{{expense.value}} {{getCurrencySymbol$(expense.currency) | async}}</div>
+              <div class="tags">
+              <span *ngFor="let tag of getTags$(expense.tags) | async; let last = last">
+                <span [ngStyle]="{'color': tag.color}">{{tag.name}}</span>
+                <span *ngIf="!last">, </span>
+              </span>
+              </div>
+            </div>
+          </mat-card>
+        </ng-container>
+        <h4 class="total m-t-05 m-b-2">
+          <span>Total: {{expenseGroup.total}}</span>
+        </h4>
+        <hr *ngIf="!lastGroup"/>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="'statistics'">
+    <h4>Not implemented yet.</h4>
+  </ng-container>
+</ng-container>

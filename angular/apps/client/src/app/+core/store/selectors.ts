@@ -11,6 +11,16 @@ export const getUser = createSelector(
   state => state.user
 );
 
+export const getUserConfig = createSelector(
+  getCoreState,
+  state => state.userConfig
+);
+
+export const getActiveGroupId = createSelector(
+  getUserConfig,
+  userConfig => userConfig ? userConfig.activeGroupId : undefined
+);
+
 export const isAuthenticated = createSelector(
   getUser,
   user => !!user

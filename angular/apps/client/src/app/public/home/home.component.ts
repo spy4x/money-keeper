@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'mk-home',
+  selector: 'mk-public-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass'],
   encapsulation: ViewEncapsulation.None,

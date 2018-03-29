@@ -5,10 +5,16 @@ import {rehydrateFeatureState} from '../../+shared/helpers/localStorageSyncState
 import {BaseAction} from '../../+shared/helpers/state.helper';
 import {ProtectedState, ProtectedStateInitial} from './state';
 import {ProtectedInitActionEffect} from './actions/init.action';
-import {SetGroupsActionEffect} from './actions/groupsSetCollection.action';
-import {ExpensesInitActionEffect} from '../expences/+store/actions/init.action';
-import {CategoriesCreateActionEffect} from '../expences/+store/actions/categoriesCreate.action';
-import {ExpensesCreateActionEffect} from '../expences/+store/actions/expensesCreate.action';
+import {GroupsSetCollectionActionEffect} from './actions/groupsSetCollection.action';
+import {LoadGroupDataActionEffect} from './actions/loadGroupData.action';
+import {CategoriesCreateActionEffect} from '../categories/+store/actions/create.action';
+import {ExpensesCreateActionEffect} from '../expenses/+store/actions/create.action';
+import {TagsCreateActionEffect} from '../tags/+store/actions/create.action';
+import {TagsEditActionEffect} from '../tags/+store/actions/edit.action';
+import {GroupsSetActiveItemIdActionEffect} from './actions/groupsSetActiveItemId.action';
+import {UISetDeviceTypeActionEffect} from './actions/uiSetDeviceType.action';
+import {ExpensesEditActionEffect} from '../expenses/+store/actions/edit.action';
+import {ExpensesDeleteActionEffect} from '../expenses/+store/actions/delete.action';
 
 
 export const FEATURE_NAME = 'protected';
@@ -24,10 +30,16 @@ export function ProtectedReducer(state = initialState, action: BaseAction<Protec
     StoreModule.forFeature(FEATURE_NAME, ProtectedReducer),
     EffectsModule.forFeature([
       ProtectedInitActionEffect,
-      SetGroupsActionEffect,
-      ExpensesInitActionEffect,
+      GroupsSetCollectionActionEffect,
+      GroupsSetActiveItemIdActionEffect,
+      LoadGroupDataActionEffect,
       CategoriesCreateActionEffect,
-      ExpensesCreateActionEffect
+      ExpensesCreateActionEffect,
+      ExpensesEditActionEffect,
+      ExpensesDeleteActionEffect,
+      TagsCreateActionEffect,
+      TagsEditActionEffect,
+      UISetDeviceTypeActionEffect,
     ]),
   ],
 })

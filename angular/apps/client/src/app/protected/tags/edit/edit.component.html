@@ -1,0 +1,46 @@
+<mat-card class="mat-elevation-z8">
+  <h4 class="m-t-0 m-b-1">{{tag.id ? 'EDIT' : 'CREATE'}} TAG</h4>
+
+  <mat-card-content>
+    <form [formGroup]="form"
+          [id]="formId"
+          (ngSubmit)="submit()"
+          novalidate>
+
+      <mat-form-field>
+        <input matInput
+               label="Name"
+               formControlName="name"
+               placeholder="Name"
+               name="name">
+        <mat-error *ngIf="form.controls['name'].hasError('required')">
+          Field is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mk-color-picker-input placeholder="Color"
+                               formControlName="color"></mk-color-picker-input>
+        <mat-error *ngIf="form.controls['color'].hasError('required')">
+          Field is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-actions class="actions">
+    <button mat-button
+            type="button"
+            (click)="cancel.emit()">
+      CANCEL
+    </button>
+
+    <button mat-button
+            type="submit"
+            [attr.form]="formId">
+      SAVE
+    </button>
+  </mat-card-actions>
+</mat-card>

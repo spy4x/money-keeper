@@ -1,0 +1,46 @@
+<mk-header>
+  <span>Tags</span>
+</mk-header>
+
+<mat-list class="items-panel" *ngIf="tags$ | async as tags">
+  <ng-container *ngFor="let tag of tags; let last = last">
+    <mat-list-item class="item" [ngClass]="{'is-editing':tag.id === editedTagId}">
+      <span matListAvatar class="color-indicator" [ngStyle]="{'background-color': tag.color}"></span>
+      <span matLine>{{tag.name}}</span>
+
+      <button mat-icon-button [matMenuTriggerFor]="appMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #appMenu="matMenu" xPosition="before">
+        <ng-template matMenuContent>
+          <button mat-menu-item (click)="edit(tag)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="remove(tag)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </ng-template>
+      </mat-menu>
+    </mat-list-item>
+    <mat-divider *ngIf="!last" inset></mat-divider>
+  </ng-container>
+
+</mat-list>
+
+<div class="editing-panel">
+  <mk-tags-edit *ngIf="editTag"
+                [tag]="editTag"
+                [@flyInOut]="'in'"
+                (save)="onSave($event)"
+                (cancel)="onCancelEdit()"></mk-tags-edit>
+</div>
+
+<button *ngIf="!editTag"
+        mat-fab
+        [@flyInOut]="'in'"
+        color="primary"
+        (click)="create()">
+  <mat-icon>add</mat-icon>
+</button>

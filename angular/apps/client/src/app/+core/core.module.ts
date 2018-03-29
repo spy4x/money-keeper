@@ -7,12 +7,12 @@ import {StoreModule} from '@ngrx/store';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {SharedModule} from '../+shared/shared.module';
 import {environment} from '../../environments/environment';
 
 import {CoreRoutingModule} from './core-routing.module';
 import {CoreStoreModule} from './store/module';
 import {UserService} from './user/user.service';
-import {SharedModule} from '../+shared/shared.module';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import {SharedModule} from '../+shared/shared.module';
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     CoreStoreModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [],
   exports: [
@@ -33,7 +33,7 @@ import {SharedModule} from '../+shared/shared.module';
     RouterModule
   ],
   providers: [
-    UserService
+    UserService,
   ]
 })
 export class CoreModule {

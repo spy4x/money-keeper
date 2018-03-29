@@ -3,6 +3,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
+import 'hammerjs';
 
 if (environment.type === 'prod') {
   enableProdMode();
@@ -11,3 +12,4 @@ if (environment.type === 'prod') {
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch(err => console.log(err));
+

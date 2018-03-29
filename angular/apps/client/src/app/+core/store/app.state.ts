@@ -8,6 +8,6 @@ export interface AppState {
 }
 
 export const AppStateInitial: AppState = {
-  core: CoreStateInitial,
+  core: undefined,
   protected: undefined
 };

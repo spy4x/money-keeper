@@ -1,0 +1,16 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav
+               [mode]="sidenavMode$ | async"
+               (backdropClick)="sidenav.close()"
+               (keydown.escape)="sidenav.close()"
+               [opened]="isMenuOpened$ | async"
+               (openedChange)="onOpenedChange($event)"
+               class="mat-elevation-z4">
+    <mk-accounts></mk-accounts>
+    <mk-menu></mk-menu>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

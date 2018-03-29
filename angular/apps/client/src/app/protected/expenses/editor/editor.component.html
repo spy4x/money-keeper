@@ -1,0 +1,105 @@
+<mk-header>
+  <span>{{expenseId ? 'Edit' : 'Create'}} expense</span>
+</mk-header>
+
+<div class="content-wrapper">
+
+  <form [formGroup]="form"
+        id="form"
+        (ngSubmit)="submit()"
+        novalidate>
+
+    <div class="amount-and-currency-row">
+      <mat-form-field>
+        <input matInput
+               label="Amount"
+               formControlName="value"
+               placeholder="Amount"
+               name="value"
+               type="number"
+               [autofocus]="!expenseId">
+        <mat-error *ngIf="form.controls['value'].hasError('required')">
+          Field is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Currency" formControlName="currency">
+          <mat-option *ngFor="let currency of currencies$ | async" [value]="currency?.id">
+            {{currency.symbol}} {{currency.title}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['category'].hasError('required')">
+          Field is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <mat-select placeholder="Category" formControlName="category">
+        <mat-option *ngFor="let category of categories$ | async" [value]="category?.id">
+          {{category?.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['category'].hasError('required')">
+        Field is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Tags" formControlName="tags" multiple>
+        <mat-option *ngFor="let tag of tags$ | async" [value]="tag.id">{{tag.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+    <textarea matInput
+              label="Comment"
+              placeholder="Comment"
+              formControlName="comment"
+              name="comment"
+              [errorStateMatcher]="matcher"
+              matTextareaAutosize
+              matAutosizeMinRows="1"
+              matAutosizeMaxRows="10"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             label="Date"
+             formControlName="createdAt"
+             placeholder="Date"
+             name="date"
+             [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker [touchUi]="'' | isTouchDevice"></mat-datepicker>
+      <mat-error *ngIf="form.controls['createdAt'].hasError('required')">
+        Field is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <mat-divider></mat-divider>
+
+  <div class="actions">
+    <button *ngIf="expenseId"
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="remove()">
+      DELETE
+    </button>
+    <button mat-button
+            type="button"
+            (click)="cancel()">
+      CANCEL
+    </button>
+
+    <button mat-button
+            type="submit"
+            form="form">
+      SAVE
+    </button>
+  </div>
+
+</div>

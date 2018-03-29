@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Select color</h2>
+<mat-dialog-content>
+  <mk-color-picker-inline [value]="data?.value" (changed)="value = $event"></mk-color-picker-inline>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button type="button" mat-dialog-close>CANCEL</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button type="button" (click)="closeDialog()">SUBMIT</button>
+</mat-dialog-actions>

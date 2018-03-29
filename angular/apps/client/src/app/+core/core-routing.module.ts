@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: 'public',
     loadChildren: '../public/public.module#PublicModule'
+  },
+  {
+    path: '**',
+    redirectTo: ''
   }
 ];
 

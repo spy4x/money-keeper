@@ -1,3 +1,11 @@
-<p>
-  edit works!
-</p>
+<mk-header>
+  <span>Group profile</span>
+</mk-header>
+
+<div *ngIf="group$ | async as group">
+  <p>Name: {{group.name}}</p>
+  <p>Avatar:</p>
+  <img [src]="group.photoURL" width="280">
+  <input type="file" (change)="uploadFile($event, group.id)">
+  <div>{{ uploadPercent | async }}</div>
+</div>

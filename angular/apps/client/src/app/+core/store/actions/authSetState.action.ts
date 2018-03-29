@@ -14,6 +14,7 @@ import {isAuthenticated} from '../selectors';
 import {UserSignedInAction} from './userSignedIn.action';
 import {UserSignedOutAction} from './userSignedOut.action';
 import {UserUpdatedAction} from './userUpdated.action';
+import {UserConfigUpdatedAction} from './userConfigUpdated.action';
 
 
 const type = generateActionType(FEATURE_NAME, 'Auth set state');
@@ -32,6 +33,25 @@ export class AuthSetStateAction implements BaseAction<CoreState> {
 
 @Injectable()
 export class AuthSetStateActionEffect {
+
+  @Effect() updateUserConfig$ = this.actions$
+    .ofType(type)
+    .pipe(
+      switchMap((action: AuthSetStateAction) => {
+        if (action.payload) {
+          return this.db
+            .doc(`usersConfigs/${action.payload.uid}`)
+            .snapshotChanges()
+            .pipe(
+              filter(v => !!v),
+              map(unwrapDocSnapshotChanges),
+            );
+        }
+        return of(null);
+      }),
+      filter(v => !!v),
+      map(userConfig => new UserConfigUpdatedAction(userConfig))
+    );
 
   @Effect() loadUserDoc$ = this.actions$
     .ofType(type)

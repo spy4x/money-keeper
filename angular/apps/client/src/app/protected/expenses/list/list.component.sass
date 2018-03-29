@@ -1,0 +1,48 @@
+mk-expenses-list
+  height: 100%
+  display: flex
+  flex-direction: column
+  align-items: stretch
+  justify-content: flex-start
+  .items
+    width: 100%
+    .item-group
+      .date
+        color: #6b6b6b
+        display: flex
+        align-items: center
+        justify-content: space-between
+      .total
+        text-align: right
+        color: #6b6b6b
+        padding: 5px 0
+      hr
+        border: 1px solid rgba(232, 230, 230, 0.65)
+        width: 50%
+      .item
+        display: flex !important
+        align-items: center
+        justify-content: space-between
+        margin-top: 5px
+        padding: 10px
+        @media screen and (min-width: 720px)
+          padding: 15px
+        mat-card-subtitle
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          > *
+            margin-right: 5px
+            &:last-child
+              margin-right: 0
+        mat-card-title
+          margin-bottom: 14px
+        mat-card-subtitle
+          margin-bottom: 0 !important
+        .amount
+          flex: 0 0 110px
+          text-align: right
+          @media screen and (max-width: 420px)
+            flex: 0 0 65px
+          @media screen and (min-width: 720px)
+            flex: 0 0 300px

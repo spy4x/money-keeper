@@ -3,14 +3,14 @@ import {localStorageSync, rehydrateApplicationState} from 'ngrx-store-localstora
 
 
 export function storageKeySerializer(key) {
-  return `msgf-state-${key}`;
+  return `mk-state-${key}`;
 }
 
 const storage: Storage = localStorage;
 
 export function LocalStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: ['checkout'],
+    keys: ['core'],
     storageKeySerializer: storageKeySerializer,
     storage
   })(reducer);

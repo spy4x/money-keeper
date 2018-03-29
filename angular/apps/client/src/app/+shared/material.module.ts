@@ -1,18 +1,22 @@
 import {NgModule} from '@angular/core';
 import {
+  MatAutocompleteModule,
   MatButtonModule,
-  MatButtonToggleModule,
   MatCardModule,
+  MatChipsModule,
   MatDatepickerModule,
+  MatDialogModule,
   MatDividerModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
+  MatMenuModule,
   MatNativeDateModule,
   MatSelectModule,
   MatSidenavModule,
+  MatSliderModule,
   MatSnackBarModule,
-  MatToolbarModule
+  MatToolbarModule,
 } from '@angular/material';
 
 
@@ -27,9 +31,13 @@ const matModules = [
   MatSelectModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatButtonToggleModule,
   MatSnackBarModule,
   MatDividerModule,
+  MatMenuModule,
+  MatSliderModule,
+  MatDialogModule,
+  MatChipsModule,
+  MatAutocompleteModule,
 ];
 
 @NgModule({
@@ -37,7 +45,7 @@ const matModules = [
   declarations: [],
   exports: [
     ...matModules
-  ]
+  ],
 })
 export class MaterialModule {
 }

@@ -1,32 +1,44 @@
 <mat-nav-list>
-  <a mat-list-item routerLink="/expenses"
+  <a mat-list-item
+     routerLink="/"
      routerLinkActive="mat-list-item-active"
      [routerLinkActiveOptions]="{exact:true}">
     <mat-icon>home</mat-icon>
     <span>Home</span>
   </a>
-  <a mat-list-item routerLink="/expenses/add"
+  <a mat-list-item
+     routerLink="/expenses/create"
      routerLinkActive="mat-list-item-active"
      [routerLinkActiveOptions]="{exact:true}">
     <mat-icon>add</mat-icon>
     <span>Add expense</span>
   </a>
-  <a mat-list-item routerLink="/expenses/logs"
+  <a mat-list-item
+     routerLink="/expenses"
      routerLinkActive="mat-list-item-active"
      [routerLinkActiveOptions]="{exact:true}">
     <mat-icon>show_chart</mat-icon>
     <span>Logs & Statistics</span>
   </a>
-  <a mat-list-item href="javascript:;"
+  <a mat-list-item
+     routerLink="/categories"
      routerLinkActive="mat-list-item-active"
-     [routerLinkActiveOptions]="{exact:true}"><!--routerLink="/expenses/categories"-->
+     [routerLinkActiveOptions]="{exact:true}">
     <mat-icon>toc</mat-icon>
     <span>Categories</span>
   </a>
-  <a mat-list-item href="javascript:;"
+  <a mat-list-item
+     routerLink="/tags"
      routerLinkActive="mat-list-item-active"
-     [routerLinkActiveOptions]="{exact:true}"><!--routerLink="/expenses/categories"-->
+     [routerLinkActiveOptions]="{exact:true}">
     <mat-icon>label_outline</mat-icon>
     <span>Tags</span>
+  </a>
+  <a mat-list-item
+     routerLink="/groups"
+     routerLinkActive="mat-list-item-active"
+     [routerLinkActiveOptions]="{exact:true}">
+    <mat-icon>group</mat-icon>
+    <span>Groups</span>
   </a>
 </mat-nav-list>

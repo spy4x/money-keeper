@@ -1,0 +1,44 @@
+<mk-header>
+  <span>Create category</span>
+</mk-header>
+
+<form [formGroup]="form"
+      id="form"
+      (ngSubmit)="submit()"
+      novalidate>
+  <mat-form-field>
+    <input matInput
+           label="Title"
+           placeholder="Title"
+           formControlName="title"
+           name="title"
+           [errorStateMatcher]="matcher">
+    <mat-error *ngIf="form.controls['title'].hasError('required')">
+      Field is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           label="Icon"
+           placeholder="Icon"
+           formControlName="icon"
+           name="icon">
+    <mat-hint>Web icon name from <a href="https://material.io/icons/" target="_blank">Material icons</a></mat-hint>
+  </mat-form-field>
+</form>
+
+<div class="actions">
+  <button mat-fab
+          color="accent"
+          type="button"
+          (click)="cancel()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <button mat-fab
+          color="primary"
+          type="submit"
+          form="form">
+    <mat-icon>check</mat-icon>
+  </button>
+</div>

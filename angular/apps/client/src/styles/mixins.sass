@@ -1,0 +1,9 @@
+@import variables
+
+@mixin active-item
+  color: $theme-color !important
+  background-color: lighten($theme-color, 45%) !important
+
+@mixin mat-list-with-menu-on-the-right
+  .mat-list-item-content
+    padding-right: 5px !important

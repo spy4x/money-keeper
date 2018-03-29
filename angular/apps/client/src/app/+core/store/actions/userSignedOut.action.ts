@@ -16,7 +16,7 @@ export class UserSignedOutAction implements BaseAction<CoreState> {
 
 
   handler(state: CoreState, action: this): CoreState {
-    return setStateProperties(state, {user: null});
+    return setStateProperties(state, {user: null, userConfig: null});
   }
 }
 

@@ -1,6 +1,7 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {ProtectedState} from './state';
+import {getActiveGroupId} from '../../+core/store/selectors';
 import {FEATURE_NAME} from './module';
+import {ProtectedState} from './state';
 
 
 export const getProtectedState = createFeatureSelector<ProtectedState>(FEATURE_NAME);
@@ -13,10 +14,6 @@ export const getGroupIds = createSelector(
   getProtectedState,
   state => state.groups.ids
 );
-export const getGroupActiveItemId = createSelector(
-  getProtectedState,
-  state => state.groups.activeItemId
-);
 
 export const getGroups = createSelector(
   getGroupItems,
@@ -25,6 +22,6 @@ export const getGroups = createSelector(
 );
 export const getActiveGroup = createSelector(
   getGroupItems,
-  getGroupActiveItemId,
+  getActiveGroupId,
   (items, activeItemId) => activeItemId ? items[activeItemId] : undefined
 );

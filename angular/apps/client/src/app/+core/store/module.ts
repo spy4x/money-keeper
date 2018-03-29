@@ -13,12 +13,11 @@ import {CoreState, CoreStateInitial} from './core.state';
 
 export const FEATURE_NAME = 'core';
 
-const initialState = rehydrateFeatureState<CoreState>(FEATURE_NAME) || CoreStateInitial;
+export const CoreInitialStateRehydrated = rehydrateFeatureState<CoreState>(FEATURE_NAME) || CoreStateInitial;
 
-export function CoreReducer(state = initialState, action: BaseAction<CoreState>) {
+export function CoreReducer(state = CoreInitialStateRehydrated, action: BaseAction<CoreState>) {
   return action.feature === FEATURE_NAME && action.handler ? action.handler(state, action) : state;
 }
-
 @NgModule({
   imports: [
     StoreModule.forRoot(AppReducers, {
@@ -36,3 +35,4 @@ export function CoreReducer(state = initialState, action: BaseAction<CoreState>)
 })
 export class CoreStoreModule {
 }
+

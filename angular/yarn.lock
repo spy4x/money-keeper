@@ -39,15 +39,15 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/cli@^1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.7.2.tgz#7539285cb83f33cc1b34aec47a5ef6e8656c8450"
+"@angular/cli@^1.7.3":
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.7.3.tgz#ac917b69240bb1b340421e9f985135890e0d53b4"
   dependencies:
     "@angular-devkit/build-optimizer" "0.3.2"
     "@angular-devkit/core" "0.3.2"
     "@angular-devkit/schematics" "0.3.2"
     "@ngtools/json-schema" "1.2.0"
-    "@ngtools/webpack" "1.10.1"
+    "@ngtools/webpack" "1.10.2"
     "@schematics/angular" "0.3.2"
     "@schematics/package-update" "0.3.2"
     ajv "^6.1.1"
@@ -55,7 +55,7 @@
     cache-loader "^1.2.0"
     chalk "~2.2.0"
     circular-dependency-plugin "^4.2.1"
-    clean-css "^4.1.9"
+    clean-css "^4.1.11"
     common-tags "^1.3.1"
     copy-webpack-plugin "~4.4.1"
     core-object "^3.1.0"
@@ -264,10 +264,6 @@
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-5.1.0.tgz#cef84576b2d0333f19188aedfe156fd301bff70a"
 
-"@ngrx/store-devtools@^5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-5.2.0.tgz#2fff916a9aa349375826772b359dbb64b9e5d622"
-
 "@ngrx/store@5.1.0":
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-5.1.0.tgz#d957131e62041deede043524fd300db9fa835d68"
@@ -280,9 +276,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@ngtools/json-schema/-/json-schema-1.1.0.tgz#c3a0c544d62392acc2813a42c8a0dc6f58f86922"
 
-"@ngtools/webpack@1.10.1":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-1.10.1.tgz#0af9de19a9716ce0247b6aad83ba9c5702766a03"
+"@ngtools/webpack@1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-1.10.2.tgz#373705fd19992b36e996203480b1d412e942c8d6"
   dependencies:
     chalk "~2.2.0"
     enhanced-resolve "^3.1.0"
@@ -1364,7 +1360,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-clean-css@4.1.x, clean-css@^4.1.9:
+clean-css@4.1.x, clean-css@^4.1.11:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.1.11.tgz#2ecdf145aba38f54740f26cefd0ff3e03e125d6a"
   dependencies:
@@ -3104,6 +3100,10 @@ gulp-sourcemaps@1.6.0:
     strip-bom "^2.0.0"
     through2 "^2.0.0"
     vinyl "^1.0.0"
+
+hammerjs@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
 
 handle-thing@^1.2.5:
   version "1.2.5"
@@ -7267,6 +7267,10 @@ wbuf@^1.1.0, wbuf@^1.7.2:
   resolved "https://registry.yarnpkg.com/wbuf/-/wbuf-1.7.2.tgz#d697b99f1f59512df2751be42769c1580b5801fe"
   dependencies:
     minimalistic-assert "^1.0.0"
+
+web-animations-js@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/web-animations-js/-/web-animations-js-2.3.1.tgz#3a6d9bc15196377a90f8e2803fa5262165b04510"
 
 webdriver-js-extender@^1.0.0:
   version "1.0.0"

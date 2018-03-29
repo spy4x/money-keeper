@@ -1,20 +1,28 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css"
 
+@import "styles/components/flex"
+
 html
-  min-height: 100vh
+  height: 50vh
 
 body
   margin: 0
   font-family: Roboto, sans-serif
-  min-height: 100vh
+  height: 50vh
 
 .m-t-0
   margin-top: 0
+.m-t-05
+  margin-top: 5px
 
 .m-b-0
   margin-bottom: 0
+.m-b-05
+  margin-bottom: 5px
 .m-b-1
   margin-bottom: 10px
+.m-b-2
+  margin-bottom: 20px
 
 form
   mat-form-field
@@ -46,3 +54,40 @@ mat-sidenav-container
   mat-sidenav-content
     .content-wrapper
       padding: 10px
+      flex: 1
+      display: flex
+      align-self: center
+      flex-direction: column
+      overflow-y: auto
+      @media screen and (min-width: 450px)
+        width: 300px
+
+
+.avatar
+  border-radius: 50%
+  &--md
+    width: 80px
+    height: 80px
+  &--sm
+    width: 40px
+    height: 40px
+  &--xs
+    width: 18px
+    height: 18px
+
+.mat-icon
+  &--xs
+    font-size: 18px !important
+    width: 18px !important
+    height: 18px !important
+
+.text-with-icon
+  display: flex
+  align-items: center
+  > :first-child
+    margin-right: 5px
+
+button[mat-fab]
+  position: absolute
+  bottom: 10px
+  right: 10px

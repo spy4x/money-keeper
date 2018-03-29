@@ -1,0 +1,26 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <input matInput
+           [value]="value"
+           placeholder="Color"
+           formControlName="custom"/>
+  </mat-form-field>
+</form>
+
+<div class="item current-value-indicator"
+     [ngStyle]="{'background-color': value}"></div>
+
+<label>Opacity:</label>
+<mat-slider min="1"
+            max="100"
+            step="1"
+            [value]="opacity"
+            (input)="setOpacity($event.value)"></mat-slider>
+<div class="items">
+  <button *ngFor="let color of getColors()"
+          class="item"
+          type="button"
+          [ngStyle]="{'background-color': color.rgbaString}"
+          [class.active]="selectedColor === color.rgb"
+          (click)="setLibraryValue(color)"></button>
+</div>

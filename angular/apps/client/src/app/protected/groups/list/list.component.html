@@ -1,0 +1,50 @@
+<mk-header>
+  <span>Groups</span>
+</mk-header>
+
+<mat-list *ngIf="activeGroup$ | async as activeGroup">
+  <ng-container *ngIf="groups$ | async as groups">
+    <ng-container *ngIf="user$ | async as user">
+      <ng-container *ngFor="let group of groups">
+        <mat-list-item [class.active]="activeGroup.id === group.id">
+          <img matListAvatar *ngIf="group.isPersonal || group.photoURL"
+               [src]="group.isPersonal ? user.photoURL : group.photoURL" [alt]="group.name">
+          <div matListAvatar *ngIf="!group.isPersonal && !group.photoURL">
+            <mat-icon mat-list-icon>group</mat-icon>
+          </div>
+          <h4 matLine>{{group.isPersonal ? 'Personal expenses' : group.name}}</h4>
+
+          <button mat-icon-button [matMenuTriggerFor]="appMenu" disableRipple>
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #appMenu="matMenu" xPosition="before">
+            <ng-template matMenuContent>
+              <button mat-menu-item *ngIf="activeGroup.id !== group.id" (click)="setActiveGroup(group)">
+                <mat-icon>check</mat-icon>
+                <span>Set active</span>
+              </button>
+              <button mat-menu-item *ngIf="group.isPersonal" [routerLink]="['/profile']">
+                <mat-icon>settings</mat-icon>
+                <span>Settings</span>
+              </button>
+              <button mat-menu-item *ngIf="!group.isPersonal" [routerLink]="['/groups/' + group.id]">
+                <mat-icon>settings</mat-icon>
+                <span>Settings</span>
+              </button>
+              <button mat-menu-item *ngIf="!group.isPersonal" (click)="remove(group)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </ng-template>
+          </mat-menu>
+        </mat-list-item>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</mat-list>
+
+<button mat-fab
+        [routerLink]="['/groups/create']"
+        color="primary">
+  <mat-icon>add</mat-icon>
+</button>

@@ -1,0 +1,16 @@
+<mk-header>
+  <span>Profile</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="signOut()">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</mk-header>
+
+<div *ngIf="user$ | async as user">
+  <p>Display name: {{user.displayName}}</p>
+  <p>Email: {{user.email}}</p>
+  <p>Avatar:</p>
+  <img [src]="user.photoURL" width="280">
+  <input type="file" (change)="uploadFile($event, user.id)">
+  <div>{{ uploadPercent | async }}</div>
+</div>
