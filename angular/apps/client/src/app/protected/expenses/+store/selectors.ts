@@ -1,7 +1,7 @@
 import {createSelector} from '@ngrx/store';
 import {getProtectedState} from '../../+store/selectors';
-import {Expense} from '../../../../../../../../+shared/types/expense.interface';
 import {getActiveGroupId} from '../../../+core/store/selectors';
+import {Expense} from '../../../../../../../../+shared/types/expense.interface';
 
 
 // Users
@@ -135,10 +135,22 @@ export const getExpensesForActiveGroupGroupedAndSortedByDate = createSelector(
     return Object
       .keys(groupedExpenses)
       .sort((a, b) => a < b ? 1 : -1) // sort days
-      .map(key => ({
-        date: key,
-        items: groupedExpenses[key],
-        total: groupedExpenses[key].reduce((acc: number, cur: Expense) => acc + cur.value, 0)
-      }));
+      .map(key => {
+        const result = {
+          date: key,
+          items: groupedExpenses[key],
+          total: groupedExpenses[key].reduce((acc, cur: Expense) => {
+            const accTotalForCurrency = acc[cur.currency.id] ? acc[cur.currency.id] : 0;
+            acc[cur.currency.id] = accTotalForCurrency + cur.value;
+            return acc;
+          }, {})
+        };
+
+        result.total = Object.keys(result.total).map(currencyId => {
+          const roundedTotal = Math.round(result.total[currencyId] * 100) / 100;
+          return {currencyId, total: roundedTotal};
+        });
+        return result;
+      });
   }
 );
