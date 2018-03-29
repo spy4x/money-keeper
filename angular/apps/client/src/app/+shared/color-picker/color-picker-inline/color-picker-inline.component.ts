@@ -38,7 +38,7 @@ export class ColorPickerInlineComponent implements OnDestroy, ControlValueAccess
   };
   selectedColor: RGB;
   @Output() changed = new EventEmitter<string>();
-  opacity: number = 100;
+  opacity: number = 65;
   sub = new Subscription();
   private colors: RGB[] = [
     {
