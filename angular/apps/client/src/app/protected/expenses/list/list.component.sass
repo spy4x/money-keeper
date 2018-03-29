@@ -4,45 +4,50 @@ mk-expenses-list
   flex-direction: column
   align-items: stretch
   justify-content: flex-start
-  .items
+  .content-wrapper
+    padding: 0 !important
     width: 100%
-    .item-group
+    @media screen and (min-width: 450px)
+      width: 100% !important
+    @media screen and (min-width: 620px)
+      padding: 10px !important
+      max-width: 600px !important
+  .days
+    width: 100%
+    .day
+      margin-bottom: 20px
+      padding: 16px !important
       .date
         color: #6b6b6b
         display: flex
         align-items: center
         justify-content: space-between
+        margin: 0
+      .mat-card-image
+        width: calc(100% + 32px) !important
+        margin: 8px -16px 16px -16px !important
       .total
         text-align: right
         color: #6b6b6b
-        padding: 5px 0
-      hr
-        border: 1px solid rgba(232, 230, 230, 0.65)
-        width: 50%
-      .item
-        display: flex !important
-        align-items: center
-        justify-content: space-between
-        margin-top: 5px
-        padding: 10px
-        @media screen and (min-width: 720px)
-          padding: 15px
-        mat-card-subtitle
-          display: flex
-          align-items: center
-          justify-content: flex-start
-          > *
-            margin-right: 5px
-            &:last-child
-              margin-right: 0
-        mat-card-title
-          margin-bottom: 14px
-        mat-card-subtitle
-          margin-bottom: 0 !important
+        margin: 0
+
+      .expense-link
+        text-decoration: none
+
+      .expense
+        .mat-list-text
+          padding-left: 8px !important
+          .additional-info
+            display: flex
+            flex-wrap: wrap
+            align-items: center
+            justify-content: flex-start
+            > *
+              margin-right: 5px
+              &:last-child
+                margin-right: 0
         .amount
           flex: 0 0 110px
           text-align: right
           @media screen and (max-width: 420px)
             flex: 0 0 65px
-          @media screen and (min-width: 720px)
-            flex: 0 0 300px
