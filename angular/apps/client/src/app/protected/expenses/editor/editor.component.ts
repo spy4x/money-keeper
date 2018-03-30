@@ -6,18 +6,20 @@ import {select, Store} from '@ngrx/store';
 import {filter, first, map} from 'rxjs/operators';
 import {Subscription} from 'rxjs/Subscription';
 import {ExpensesCreateAction} from '../+store/actions/create.action';
+import {ExpensesDeleteAction} from '../+store/actions/delete.action';
 import {ExpensesEditAction} from '../+store/actions/edit.action';
 import {
   getCategoriesForActiveGroup,
   getCurrencies,
   getExpensesItemsForActiveGroup,
-  getTagsForActiveGroup
+  getTagsForActiveGroup,
+  getUsersForActiveGroupWithRoles
 } from '../+store/selectors';
 import {getActiveGroup} from '../../+store/selectors';
 import {AppState} from '../../../+core/store/app.state';
 import {MyErrorStateMatcher} from '../../../+shared/helpers/forms.helper';
 import {Expense} from '../../../../../../../../+shared/types/expense.interface';
-import {ExpensesDeleteAction} from '../+store/actions/delete.action';
+import {getUser} from '../../../+core/store/selectors';
 
 
 @Component({
@@ -33,6 +35,14 @@ export class EditorComponent implements OnInit, OnDestroy {
   activeGroup$ = this.store.pipe(select(getActiveGroup));
   currencies$ = this.store.pipe(select(getCurrencies));
   tags$ = this.store.pipe(select(getTagsForActiveGroup));
+  users$ = this.store.pipe(
+    select(getUsersForActiveGroupWithRoles),
+    map(usersWithRoles => usersWithRoles
+      .filter(ur => ur.role === 'owner' || ur.role === 'write')
+      .map(ur => ur.user)
+    )
+  );
+  user$ = this.store.pipe(select(getUser));
   matcher = new MyErrorStateMatcher();
   sub = new Subscription();
   expenseId: string;
@@ -63,6 +73,12 @@ export class EditorComponent implements OnInit, OnDestroy {
           this.form.patchValue({currency: activeGroup.defaultCurrency.id});
         }
       }));
+    this.sub.add(this.user$.pipe(filter(v => !!v), first())
+      .subscribe(user => {
+        if (!this.form.value.createdBy && !this.expenseId) {
+          this.form.patchValue({createdBy: user.id});
+        }
+      }));
   }
 
   ngOnDestroy() {
@@ -74,7 +90,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   remove(): void {
-    if(!this.expenseId){
+    if (!this.expenseId) {
       return;
     }
     const expense = this.getExpenseFromFormValue();
@@ -105,6 +121,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       currency: this.form.value.currency,
       comment: this.form.value.comment,
       createdAt: this.form.value.createdAt,
+      createdBy: this.form.value.createdBy,
       tags: this.form.value.tags.reduce((acc, cur) => ({...acc, [cur]: true}), {})
     };
   }
@@ -120,7 +137,8 @@ export class EditorComponent implements OnInit, OnDestroy {
       'category': [expense ? expense.category.id : undefined, Validators.required],
       'comment': [expense ? expense.comment : undefined],
       'createdAt': [expense ? expense.createdAt : new Date(), Validators.required],
-      'tags': [expense ? Object.keys(expense.tags) : []]
+      'tags': [expense ? Object.keys(expense.tags) : []],
+      'createdBy': [expense ? expense.createdBy.id : undefined, Validators.required],
     });
   }
 }

@@ -38,14 +38,13 @@ export class ExpensesCreateActionEffect {
     .pipe(
       withLatestFrom(this.store),
       tap(([action, state]: [ExpensesCreateAction, AppState]) => {
-        const user = getUser(state);
         const activeGroup = getActiveGroup(state);
 
         const expense = action.payload;
         delete expense.id;
         expense.currency = this.db.doc(`currencies/${expense.currency}`).ref;
         expense.category = this.db.doc(`groups/${activeGroup.id}/categories/${expense.category}`).ref;
-        expense.createdBy = this.db.doc(`users/${user.id}`).ref;
+        expense.createdBy = this.db.doc(`users/${expense.createdBy}`).ref;
 
         this.db.collection<Expense>(`groups/${activeGroup.id}/expenses`).add(expense)
           .catch(error => {

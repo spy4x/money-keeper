@@ -37,7 +37,6 @@ export class ExpensesEditActionEffect {
     .pipe(
       withLatestFrom(this.store),
       tap(([action, state]: [ExpensesEditAction, AppState]) => {
-        // const user = getUser(state);
         const activeGroup = getActiveGroup(state);
 
         const expense = action.payload;
@@ -45,7 +44,7 @@ export class ExpensesEditActionEffect {
         delete expense.id;
         expense.currency = this.db.doc(`currencies/${expense.currency}`).ref;
         expense.category = this.db.doc(`groups/${activeGroup.id}/categories/${expense.category}`).ref;
-        // expense.createdBy = this.db.doc(`users/${user.id}`).ref;
+        expense.createdBy = this.db.doc(`users/${expense.createdBy}`).ref;
 
         this.db.doc<Expense>(`groups/${activeGroup.id}/expenses/${expenseId}`).update(expense)
           .catch(error => {

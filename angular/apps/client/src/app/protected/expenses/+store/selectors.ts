@@ -1,5 +1,5 @@
 import {createSelector} from '@ngrx/store';
-import {getProtectedState} from '../../+store/selectors';
+import {getActiveGroup, getProtectedState} from '../../+store/selectors';
 import {getActiveGroupId} from '../../../+core/store/selectors';
 import {Expense} from '../../../../../../../../+shared/types/expense.interface';
 
@@ -22,6 +22,13 @@ export const getUsers = createSelector(
   getUsersIds,
   getUsersItems,
   (ids, items) => ids.map(id => items[id])
+);
+export const getUsersForActiveGroupWithRoles = createSelector(
+  getActiveGroup,
+  getUsersItems,
+  (group, users) => group && users && Object.keys(users).length
+    ? Object.keys(group.roles).map(userId => ({user: users[userId], role: group.roles[userId]}))
+    : []
 );
 
 // Currencies
