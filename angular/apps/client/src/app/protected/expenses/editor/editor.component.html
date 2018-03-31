@@ -78,13 +78,31 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field [hidden]="(activeGroup$ | async)?.isPersonal">
       <mat-select placeholder="Author" formControlName="createdBy" panelClass="select--author">
         <mat-option *ngFor="let user of users$ | async" [value]="user?.id">
           <img class="avatar avatar--sm" [src]="user.photoURL"><span>{{user.displayName}}</span>
         </mat-option>
       </mat-select>
       <mat-error *ngIf="form.controls['createdBy'].hasError('required')">
+        Field is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <form [formGroup]="groupForm" *ngIf="groupForm && !expenseId && (groups$ | async).length > 1">
+    <mat-form-field>
+      <mat-select placeholder="Group" formControlName="group" panelClass="select--group">
+        <mat-option *ngFor="let group of groups$ | async" [value]="group?.id">
+          <ng-container *ngIf="group.isPersonal; else sharedGroup">
+            <img class="avatar avatar--sm" [src]="(user$ | async)?.photoURL"><span>Personal expenses</span>
+          </ng-container>
+          <ng-template #sharedGroup>
+            <img class="avatar avatar--sm" [src]="group.photoURL"><span>{{group.name}}</span>
+          </ng-template>
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="groupForm.controls['group'].hasError('required')">
         Field is <strong>required</strong>
       </mat-error>
     </mat-form-field>

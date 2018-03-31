@@ -15,11 +15,13 @@ import {
   getTagsForActiveGroup,
   getUsersForActiveGroupWithRoles
 } from '../+store/selectors';
-import {getActiveGroup} from '../../+store/selectors';
+import {GroupsSetActiveItemIdAction} from '../../+store/actions/groupsSetActiveItemId.action';
+import {getActiveGroup, getGroups} from '../../+store/selectors';
 import {AppState} from '../../../+core/store/app.state';
+import {getUser} from '../../../+core/store/selectors';
 import {MyErrorStateMatcher} from '../../../+shared/helpers/forms.helper';
 import {Expense} from '../../../../../../../../+shared/types/expense.interface';
-import {getUser} from '../../../+core/store/selectors';
+import {Group} from '../../../../../../../../+shared/types/group.interface';
 
 
 @Component({
@@ -31,10 +33,12 @@ import {getUser} from '../../../+core/store/selectors';
 })
 export class EditorComponent implements OnInit, OnDestroy {
   form: FormGroup;
+  groupForm: FormGroup;
   categories$ = this.store.pipe(select(getCategoriesForActiveGroup));
   activeGroup$ = this.store.pipe(select(getActiveGroup));
   currencies$ = this.store.pipe(select(getCurrencies));
   tags$ = this.store.pipe(select(getTagsForActiveGroup));
+  groups$ = this.store.pipe(select(getGroups));
   users$ = this.store.pipe(
     select(getUsersForActiveGroupWithRoles),
     map(usersWithRoles => usersWithRoles
@@ -46,6 +50,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   matcher = new MyErrorStateMatcher();
   sub = new Subscription();
   expenseId: string;
+  groupId: string;
 
   constructor(private fb: FormBuilder,
               private activatedRoute: ActivatedRoute,
@@ -69,6 +74,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       }));
     this.sub.add(this.activeGroup$.pipe(filter(v => !!v), first())
       .subscribe(activeGroup => {
+        this.initGroupForm(activeGroup);
         if (!this.form.value.currency) {
           this.form.patchValue({currency: activeGroup.defaultCurrency.id});
         }
@@ -96,7 +102,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     const expense = this.getExpenseFromFormValue();
     this.store.dispatch(new ExpensesDeleteAction(expense));
   }
-
 
   editExpense(expenseId: string) {
     this.expenseId = expenseId;
@@ -140,5 +145,24 @@ export class EditorComponent implements OnInit, OnDestroy {
       'tags': [expense ? Object.keys(expense.tags) : []],
       'createdBy': [expense ? expense.createdBy.id : undefined, Validators.required],
     });
+  }
+
+  initGroupForm(group: Group) {
+    if (this.expenseId) {
+      return;
+    }
+    this.groupId = group.id;
+    this.groupForm = this.fb.group({
+      'group': [group.id, Validators.required],
+    });
+    this.sub.add(this.groupForm.valueChanges.pipe(filter(v => v.group !== this.groupId)).subscribe(groupFormValue => {
+      this.groupId = groupFormValue.group;
+      this.form.patchValue({ // this prevents data from one group appear in another
+        category: null,
+        createdBy: group.isPersonal ? group.id : null,
+        tags: []
+      });
+      this.store.dispatch(new GroupsSetActiveItemIdAction({groupId: this.groupId, shouldNotify: false}));
+    }));
   }
 }
