@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {AuthSetStateAction} from '../store/actions/authSetState.action';
+import {filter} from 'rxjs/operators';
+import {AuthSetUserAction} from '../store/actions/authSetUser.action';
 import {AppState} from '../store/app.state';
 
 
@@ -10,14 +10,15 @@ import {AppState} from '../store/app.state';
 export class UserService {
 
   constructor(private afAuth: AngularFireAuth,
-              private store: Store<AppState>,
-              private db: AngularFirestore) {
+              private store: Store<AppState>) {
   }
 
   init() {
-    this.afAuth.authState.subscribe(user => {
-      this.store.dispatch(new AuthSetStateAction(user));
-    });
+    this.afAuth.authState
+      .pipe(filter(v => !!v))
+      .subscribe(user => {
+        this.store.dispatch(new AuthSetUserAction(user));
+      });
   }
 
 }

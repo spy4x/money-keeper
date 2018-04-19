@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
-import {MatSnackBar} from '@angular/material';
 import {Actions, Effect} from '@ngrx/effects';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {BaseAction, generateActionType, setStateProperties} from '../../../+shared/helpers/state.helper';
 import {User} from '../../../../../../../../+shared/types/user.interface';
 import {ProtectedInitAction} from '../../../protected/+store/actions/init.action';
 import {CoreState} from '../core.state';
 import {FEATURE_NAME} from '../module';
+import {AuthState} from '../types/authState.enum';
+import {AuthSetStateAction} from './authSetState.action';
 
 
 const type = generateActionType(FEATURE_NAME, 'User signed in');
@@ -26,11 +27,10 @@ export class UserSignedInAction implements BaseAction<CoreState> {
 @Injectable()
 export class UserSignedInActionEffect {
 
-  @Effect({dispatch: false}) showSnackBar$ = this.actions$
+  @Effect() authSetState$ = this.actions$
     .ofType(type)
     .pipe(
-      tap((action: UserSignedInAction) =>
-        this.snackBar.open(`Welcome ${action.payload.displayName}!`, undefined, {duration: 2500}))
+      map(() => new AuthSetStateAction(AuthState.authenticated))
     );
 
   @Effect() notifyProtectedModule$ = this.actions$
@@ -39,7 +39,6 @@ export class UserSignedInActionEffect {
       map(() => new ProtectedInitAction())
     );
 
-  constructor(private actions$: Actions,
-              private snackBar: MatSnackBar,) {
+  constructor(private actions$: Actions) {
   }
 }

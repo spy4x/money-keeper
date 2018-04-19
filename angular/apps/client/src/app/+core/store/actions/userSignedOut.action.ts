@@ -1,11 +1,13 @@
-import {BaseAction, generateActionType, setStateProperties} from '../../../+shared/helpers/state.helper';
-import {FEATURE_NAME} from '../module';
-import {CoreState} from '../core.state';
-import {Router} from '@angular/router';
-import {Actions, Effect} from '@ngrx/effects';
-import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
+import {Router} from '@angular/router';
+import {Actions, Effect} from '@ngrx/effects';
+import {AngularFireAuth} from 'angularfire2/auth';
+import {tap} from 'rxjs/operators';
+import {BaseAction, generateActionType, setStateProperties} from '../../../+shared/helpers/state.helper';
+import {CoreState} from '../core.state';
+import {FEATURE_NAME} from '../module';
+import {AuthState} from '../types/authState.enum';
 
 
 const type = generateActionType(FEATURE_NAME, 'User signed out');
@@ -16,7 +18,7 @@ export class UserSignedOutAction implements BaseAction<CoreState> {
 
 
   handler(state: CoreState, action: this): CoreState {
-    return setStateProperties(state, {user: null, userConfig: null});
+    return setStateProperties(state, {user: null, userConfig: null, authState: AuthState.notAuthenticated});
   }
 }
 
@@ -36,8 +38,17 @@ export class UserSignedOutActionEffect {
         this.snackBar.open(`See you soon!`, undefined, {duration: 2500}))
     );
 
+  @Effect({dispatch: false}) signOutInFirebase$ = this.actions$
+    .ofType(type)
+    .pipe(
+      tap(() => this.afAuth.auth
+        .signOut()
+        .catch(console.error))
+    );
+
   constructor(private actions$: Actions,
               private router: Router,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private afAuth: AngularFireAuth) {
   }
 }

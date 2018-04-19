@@ -7,6 +7,8 @@ import {select, Store} from '@ngrx/store';
 import {AppState} from '../../+core/store/app.state';
 import {getUser} from '../../+core/store/selectors';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {AuthSetStateAction} from '../../+core/store/actions/authSetState.action';
+import {UserSignedOutAction} from '../../+core/store/actions/userSignedOut.action';
 
 
 @Component({
@@ -37,8 +39,6 @@ export class ProfileComponent {
   }
 
   signOut(): void {
-    this.afAuth.auth
-      .signOut()
-      .catch(console.error);
+    this.store.dispatch(new UserSignedOutAction())
   }
 }

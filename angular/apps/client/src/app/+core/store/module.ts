@@ -3,12 +3,13 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
 import {rehydrateFeatureState} from '../../+shared/helpers/localStorageSyncState.helper';
 import {BaseAction} from '../../+shared/helpers/state.helper';
-import {AuthSetStateActionEffect} from './actions/authSetState.action';
 import {UserSignedInActionEffect} from './actions/userSignedIn.action';
 import {UserSignedOutActionEffect} from './actions/userSignedOut.action';
 import {AppMetaReducers, AppReducers} from './app.reducer';
 import {AppStateInitial} from './app.state';
 import {CoreState, CoreStateInitial} from './core.state';
+import {AuthLoadDataActionEffect} from './actions/authLoadData.action';
+import {AuthSetUserActionEffect} from './actions/authSetUser.action';
 
 
 export const FEATURE_NAME = 'core';
@@ -27,7 +28,8 @@ export function CoreReducer(state = CoreInitialStateRehydrated, action: BaseActi
     EffectsModule.forRoot([]),
     StoreModule.forFeature(FEATURE_NAME, CoreReducer),
     EffectsModule.forFeature([
-      AuthSetStateActionEffect,
+      AuthSetUserActionEffect,
+      AuthLoadDataActionEffect,
       UserSignedInActionEffect,
       UserSignedOutActionEffect
     ]),
