@@ -1,5 +1,5 @@
-import {FocusMonitor} from '@angular/cdk/a11y';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,14 +10,17 @@ import {
   OnDestroy,
   Optional,
   Self,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import {ControlValueAccessor, NgControl} from '@angular/forms';
-import {MatDialog, MatDialogRef, MatFormFieldControl} from '@angular/material';
-import {Subject} from 'rxjs/Subject';
-import {Subscription} from 'rxjs/Subscription';
-import {ColorPickerDialogComponent} from '../color-picker-dialog/color-picker-dialog.component';
-
+import { ControlValueAccessor, NgControl } from '@angular/forms';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatFormFieldControl,
+} from '@angular/material';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { ColorPickerDialogComponent } from '../color-picker-dialog/color-picker-dialog.component';
 
 @Component({
   selector: 'mk-color-picker-input',
@@ -28,27 +31,32 @@ import {ColorPickerDialogComponent} from '../color-picker-dialog/color-picker-di
   providers: [
     {
       provide: MatFormFieldControl,
-      useExisting: ColorPickerInputComponent
-    }
+      useExisting: ColorPickerInputComponent,
+    },
   ],
 })
-export class ColorPickerInputComponent implements OnDestroy, MatFormFieldControl<string>, ControlValueAccessor {
+export class ColorPickerInputComponent
+  implements OnDestroy, MatFormFieldControl<string>, ControlValueAccessor {
   static nextId = 0;
   stateChanges = new Subject<void>();
-  @HostBinding() id = `my-color-picker-input-${ColorPickerInputComponent.nextId++}`;
+  @HostBinding()
+  id = `my-color-picker-input-${ColorPickerInputComponent.nextId++}`;
   errorState = false;
   controlType = 'mk-color-picker-input';
   @HostBinding('attr.aria-describedby') describedBy = '';
-  propagateChange = (_: any) => {
-  };
+  propagateChange = (_: any) => {};
   dialogRef: MatDialogRef<ColorPickerDialogComponent, string>;
   sub = new Subscription();
 
-  constructor(private fm: FocusMonitor,
-              private elRef: ElementRef,
-              private cd: ChangeDetectorRef,
-              @Optional() @Self() public ngControl: NgControl,
-              private dialog: MatDialog) {
+  constructor(
+    private fm: FocusMonitor,
+    private elRef: ElementRef,
+    private cd: ChangeDetectorRef,
+    @Optional()
+    @Self()
+    public ngControl: NgControl,
+    private dialog: MatDialog,
+  ) {
     fm.monitor(elRef.nativeElement, true).subscribe(origin => {
       this.focused = !!origin;
       this.cd.detectChanges();
@@ -157,23 +165,23 @@ export class ColorPickerInputComponent implements OnDestroy, MatFormFieldControl
     this.propagateChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
-  }
+  registerOnTouched(fn: any): void {}
 
   openDialog() {
     this.dialogRef = this.dialog.open(ColorPickerDialogComponent, {
       data: {
-        value: this.value
+        value: this.value,
       },
       autoFocus: false,
-      width: '250px'
+      width: '250px',
     });
-    this.sub.add(this.dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.value = result;
-        this.cd.detectChanges();
-      }
-    }));
+    this.sub.add(
+      this.dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.value = result;
+          this.cd.detectChanges();
+        }
+      }),
+    );
   }
-
 }

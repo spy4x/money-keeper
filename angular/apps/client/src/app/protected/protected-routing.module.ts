@@ -1,8 +1,7 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ProtectedGuard} from './protected.guard';
-import {ProtectedComponent} from './protected.component';
-
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ProtectedGuard } from './protected.guard';
+import { ProtectedComponent } from './protected.component';
 
 const routes: Routes = [
   {
@@ -12,38 +11,35 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './home/home.module#HomeModule'
+        loadChildren: './home/home.module#HomeModule',
       },
       {
         path: 'expenses',
-        loadChildren: './expenses/expenses.module#ExpensesModule'
+        loadChildren: './expenses/expenses.module#ExpensesModule',
       },
       {
         path: 'categories',
-        loadChildren: './categories/categories.module#CategoriesModule'
+        loadChildren: './categories/categories.module#CategoriesModule',
       },
       {
         path: 'tags',
-        loadChildren: './tags/tags.module#TagsModule'
+        loadChildren: './tags/tags.module#TagsModule',
       },
       {
         path: 'groups',
-        loadChildren: './groups/groups.module#GroupsModule'
+        loadChildren: './groups/groups.module#GroupsModule',
       },
       {
         path: 'profile',
-        loadChildren: './profile/profile.module#ProfileModule'
-      }
-    ]
+        loadChildren: './profile/profile.module#ProfileModule',
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [
-    ProtectedGuard
-  ]
+  providers: [ProtectedGuard],
 })
-export class ProtectedRoutingModule {
-}
+export class ProtectedRoutingModule {}

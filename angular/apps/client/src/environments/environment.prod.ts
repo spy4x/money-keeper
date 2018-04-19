@@ -1,5 +1,4 @@
-import {Environment} from './environment.interface';
-
+import { Environment } from './environment.interface';
 
 export const environment: Environment = {
   type: 'prod',
@@ -9,6 +8,6 @@ export const environment: Environment = {
     databaseURL: 'https://money-keeper-pwa.firebaseio.com',
     projectId: 'money-keeper-pwa',
     storageBucket: 'money-keeper-pwa.appspot.com',
-    messagingSenderId: '931375082243'
-  }
+    messagingSenderId: '931375082243',
+  },
 };

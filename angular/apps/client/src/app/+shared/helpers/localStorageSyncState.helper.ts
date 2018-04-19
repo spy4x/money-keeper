@@ -1,6 +1,8 @@
-import {ActionReducer} from '@ngrx/store';
-import {localStorageSync, rehydrateApplicationState} from 'ngrx-store-localstorage';
-
+import { ActionReducer } from '@ngrx/store';
+import {
+  localStorageSync,
+  rehydrateApplicationState,
+} from 'ngrx-store-localstorage';
 
 export function storageKeySerializer(key) {
   return `mk-state-${key}`;
@@ -8,11 +10,13 @@ export function storageKeySerializer(key) {
 
 const storage: Storage = localStorage;
 
-export function LocalStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+export function LocalStorageSyncReducer(
+  reducer: ActionReducer<any>,
+): ActionReducer<any> {
   return localStorageSync({
     keys: ['core'],
     storageKeySerializer: storageKeySerializer,
-    storage
+    storage,
   })(reducer);
 }
 
@@ -21,6 +25,6 @@ export function rehydrateFeatureState<T>(featureName: string): T {
     [featureName],
     storage,
     storageKeySerializer,
-    true
+    true,
   )[featureName];
 }

@@ -3,8 +3,7 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-import {Environment} from './environment.interface';
-
+import { Environment } from './environment.interface';
 
 export const environment: Environment = {
   type: 'dev',
@@ -14,6 +13,6 @@ export const environment: Environment = {
     databaseURL: 'https://money-keeper-pwa.firebaseio.com',
     projectId: 'money-keeper-pwa',
     storageBucket: 'money-keeper-pwa.appspot.com',
-    messagingSenderId: '931375082243'
-  }
+    messagingSenderId: '931375082243',
+  },
 };

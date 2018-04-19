@@ -12,4 +12,3 @@ if (environment.type === 'prod') {
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch(err => console.log(err));
-

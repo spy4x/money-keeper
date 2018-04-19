@@ -1,19 +1,11 @@
-import {NgModule} from '@angular/core';
-import {ProtectedSharedModule} from '../+shared/shared.module';
-import {CategoriesRoutingModule} from './categories-routing.module';
-import {CreateComponent} from './create/create.component';
-import {ListComponent} from './list/list.component';
-
+import { NgModule } from '@angular/core';
+import { ProtectedSharedModule } from '../+shared/shared.module';
+import { CategoriesRoutingModule } from './categories-routing.module';
+import { CreateComponent } from './create/create.component';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
-  imports: [
-    ProtectedSharedModule,
-    CategoriesRoutingModule,
-  ],
-  declarations: [
-    ListComponent,
-    CreateComponent
-  ]
+  imports: [ProtectedSharedModule, CategoriesRoutingModule],
+  declarations: [ListComponent, CreateComponent],
 })
-export class CategoriesModule {
-}
+export class CategoriesModule {}

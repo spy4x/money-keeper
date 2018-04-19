@@ -1,7 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {EditorComponent} from './editor/editor.component';
-
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { EditorComponent } from './editor/editor.component';
 
 const routes: Routes = [
   {
@@ -9,27 +8,26 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './list/list.module#ListModule'
+        loadChildren: './list/list.module#ListModule',
       },
       {
         path: 'create',
-        component: EditorComponent
+        component: EditorComponent,
       },
       {
         path: 'create/:categoryId',
-        component: EditorComponent
+        component: EditorComponent,
       },
       {
         path: ':expenseId',
-        component: EditorComponent
+        component: EditorComponent,
       },
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ExpensesRoutingModule {
-}
+export class ExpensesRoutingModule {}

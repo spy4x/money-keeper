@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -18,7 +18,6 @@ import {
   MatSnackBarModule,
   MatToolbarModule,
 } from '@angular/material';
-
 
 const matModules = [
   MatSidenavModule,
@@ -43,9 +42,6 @@ const matModules = [
 @NgModule({
   imports: [],
   declarations: [],
-  exports: [
-    ...matModules
-  ],
+  exports: [...matModules],
 })
-export class MaterialModule {
-}
+export class MaterialModule {}

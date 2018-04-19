@@ -1,29 +1,34 @@
-import {NgModule} from '@angular/core';
-import {EffectsModule} from '@ngrx/effects';
-import {StoreModule} from '@ngrx/store';
-import {rehydrateFeatureState} from '../../+shared/helpers/localStorageSyncState.helper';
-import {BaseAction} from '../../+shared/helpers/state.helper';
-import {UserSignedInActionEffect} from './actions/userSignedIn.action';
-import {UserSignedOutActionEffect} from './actions/userSignedOut.action';
-import {AppMetaReducers, AppReducers} from './app.reducer';
-import {AppStateInitial} from './app.state';
-import {CoreState, CoreStateInitial} from './core.state';
-import {AuthLoadDataActionEffect} from './actions/authLoadData.action';
-import {AuthSetUserActionEffect} from './actions/authSetUser.action';
-
+import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { rehydrateFeatureState } from '../../+shared/helpers/localStorageSyncState.helper';
+import { BaseAction } from '../../+shared/helpers/state.helper';
+import { UserSignedInActionEffect } from './actions/userSignedIn.action';
+import { UserSignedOutActionEffect } from './actions/userSignedOut.action';
+import { AppMetaReducers, AppReducers } from './app.reducer';
+import { AppStateInitial } from './app.state';
+import { CoreState, CoreStateInitial } from './core.state';
+import { AuthLoadDataActionEffect } from './actions/authLoadData.action';
+import { AuthSetUserActionEffect } from './actions/authSetUser.action';
 
 export const FEATURE_NAME = 'core';
 
-export const CoreInitialStateRehydrated = rehydrateFeatureState<CoreState>(FEATURE_NAME) || CoreStateInitial;
+export const CoreInitialStateRehydrated =
+  rehydrateFeatureState<CoreState>(FEATURE_NAME) || CoreStateInitial;
 
-export function CoreReducer(state = CoreInitialStateRehydrated, action: BaseAction<CoreState>) {
-  return action.feature === FEATURE_NAME && action.handler ? action.handler(state, action) : state;
+export function CoreReducer(
+  state = CoreInitialStateRehydrated,
+  action: BaseAction<CoreState>,
+) {
+  return action.feature === FEATURE_NAME && action.handler
+    ? action.handler(state, action)
+    : state;
 }
 @NgModule({
   imports: [
     StoreModule.forRoot(AppReducers, {
       initialState: AppStateInitial,
-      metaReducers: AppMetaReducers
+      metaReducers: AppMetaReducers,
     }),
     EffectsModule.forRoot([]),
     StoreModule.forFeature(FEATURE_NAME, CoreReducer),
@@ -31,10 +36,8 @@ export function CoreReducer(state = CoreInitialStateRehydrated, action: BaseActi
       AuthSetUserActionEffect,
       AuthLoadDataActionEffect,
       UserSignedInActionEffect,
-      UserSignedOutActionEffect
+      UserSignedOutActionEffect,
     ]),
   ],
 })
-export class CoreStoreModule {
-}
-
+export class CoreStoreModule {}

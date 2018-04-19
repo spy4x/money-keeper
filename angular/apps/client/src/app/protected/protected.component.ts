@@ -1,62 +1,63 @@
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import {MatSidenav} from '@angular/material';
-import {NavigationStart, Router} from '@angular/router';
-import {select, Store} from '@ngrx/store';
-import {filter, first, map, withLatestFrom} from 'rxjs/operators';
-import {Subscription} from 'rxjs/Subscription';
-import {AppState} from '../+core/store/app.state';
-import {UIMenuToggleAction} from './+store/actions/uiMenuToggle.action';
-import {UISetDeviceTypeAction} from './+store/actions/uiSetDeviceType.action';
-
+import { MatSidenav } from '@angular/material';
+import { NavigationStart, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { filter, first, map, withLatestFrom } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
+import { AppState } from '../+core/store/app.state';
+import { UIMenuToggleAction } from './+store/actions/uiMenuToggle.action';
+import { UISetDeviceTypeAction } from './+store/actions/uiSetDeviceType.action';
 
 @Component({
   selector: 'mk-protected',
   templateUrl: './protected.component.html',
   styleUrls: ['./protected.component.sass'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProtectedComponent implements AfterViewInit, OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav;
-  sidenavMode$ = this.store.pipe(select(s => s.protected.ui.deviceType), map(dt => dt === 'mobile' ? 'over' : 'side'));
+  sidenavMode$ = this.store.pipe(
+    select(s => s.protected.ui.deviceType),
+    map(dt => (dt === 'mobile' ? 'over' : 'side')),
+  );
   isMenuOpened$ = this.store.pipe(select(s => s.protected.ui.isMenuOpened));
   sub = new Subscription();
 
-  constructor(private store: Store<AppState>,
-              private router: Router,
-              private breakpointObserver: BreakpointObserver) {
-    breakpointObserver.observe([
-      Breakpoints.HandsetLandscape,
-      Breakpoints.HandsetPortrait
-    ]).subscribe(result => {
-      if (result.matches) {
-        this.store.dispatch(new UISetDeviceTypeAction('mobile'));
-      }
-    });
-    breakpointObserver.observe([
-      Breakpoints.TabletPortrait,
-      Breakpoints.TabletLandscape,
-    ]).subscribe(result => {
-      if (result.matches) {
-        this.store.dispatch(new UISetDeviceTypeAction('tablet'));
-      }
-    });
-    breakpointObserver.observe([
-      Breakpoints.WebLandscape,
-      Breakpoints.WebLandscape
-    ]).subscribe(result => {
-      if (result.matches) {
-        this.store.dispatch(new UISetDeviceTypeAction('desktop'));
-      }
-    });
+  constructor(
+    private store: Store<AppState>,
+    private router: Router,
+    private breakpointObserver: BreakpointObserver,
+  ) {
+    breakpointObserver
+      .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
+      .subscribe(result => {
+        if (result.matches) {
+          this.store.dispatch(new UISetDeviceTypeAction('mobile'));
+        }
+      });
+    breakpointObserver
+      .observe([Breakpoints.TabletPortrait, Breakpoints.TabletLandscape])
+      .subscribe(result => {
+        if (result.matches) {
+          this.store.dispatch(new UISetDeviceTypeAction('tablet'));
+        }
+      });
+    breakpointObserver
+      .observe([Breakpoints.WebLandscape, Breakpoints.WebLandscape])
+      .subscribe(result => {
+        if (result.matches) {
+          this.store.dispatch(new UISetDeviceTypeAction('desktop'));
+        }
+      });
   }
 
   ngAfterViewInit() {
@@ -65,10 +66,13 @@ export class ProtectedComponent implements AfterViewInit, OnDestroy {
         .pipe(
           filter(e => e instanceof NavigationStart),
           withLatestFrom(this.store),
-          map(([event, state]: [any, AppState]) => state.protected.ui.deviceType),
-          filter(v => v === 'mobile')
+          map(
+            ([event, state]: [any, AppState]) => state.protected.ui.deviceType,
+          ),
+          filter(v => v === 'mobile'),
         )
-        .subscribe(() => this.sidenav.close()));
+        .subscribe(() => this.sidenav.close()),
+    );
   }
 
   ngOnDestroy() {
@@ -77,10 +81,7 @@ export class ProtectedComponent implements AfterViewInit, OnDestroy {
 
   onOpenedChange(isOpened: boolean): void {
     const sub = this.isMenuOpened$
-      .pipe(
-        first(),
-        filter(v => v !== isOpened)
-      )
+      .pipe(first(), filter(v => v !== isOpened))
       .subscribe(() => this.store.dispatch(new UIMenuToggleAction(isOpened)));
     sub.unsubscribe();
   }

@@ -2,14 +2,14 @@
 
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import {User} from '../../../+shared/types/user.interface';
-import {UserConfig} from '../../../+shared/types/userConfig.interface';
-
+import { User } from '../../../+shared/types/user.interface';
+import { UserConfig } from '../../../+shared/types/userConfig.interface';
 
 admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();
 
-export const createDataStructureForNewUser = functions.auth.user()
+export const createDataStructureForNewUser = functions.auth
+  .user()
   .onCreate(async event => {
     const user = event.data;
     const userPath = `users/${user.uid}`;
@@ -25,20 +25,20 @@ export const createDataStructureForNewUser = functions.auth.user()
       displayName: user.displayName || user.email || null,
       email: user.email || null,
       photoURL: user.photoURL || null,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
     const group = {
       name: `${user.displayName}'s personal group`,
       isPersonal: true,
       roles: {
-        [user.uid]: 'owner'
+        [user.uid]: 'owner',
       },
       defaultCurrency: defaultCurrencyRef,
       createdAt: new Date(),
     };
     const userConfig: UserConfig = {
       activeGroupId: groupRef.id,
-      defaultCurrencyId: defaultCurrencyId // TODO: define currency based on user's country
+      defaultCurrencyId: defaultCurrencyId, // TODO: define currency based on user's country
     };
     const batch = db.batch();
     batch.set(userRef, userProfile);
@@ -49,14 +49,24 @@ export const createDataStructureForNewUser = functions.auth.user()
       .then(() =>
         console.log(
           'User and his starting structure were created',
-          '\nUser:', userProfile,
-          '\nGroup:', group,
-          '\nUserConfig:', userConfig,
-        )
+          '\nUser:',
+          userProfile,
+          '\nGroup:',
+          group,
+          '\nUserConfig:',
+          userConfig,
+        ),
       )
-      .catch(error => console.error('Creating User and his starting structure failed. ' +
-        'User profile:', userProfile,
-        'Personal group:', group,
-        'User config:', userConfig,
-        'Error:', error));
+      .catch(error =>
+        console.error(
+          'Creating User and his starting structure failed. ' + 'User profile:',
+          userProfile,
+          'Personal group:',
+          group,
+          'User config:',
+          userConfig,
+          'Error:',
+          error,
+        ),
+      );
   });
