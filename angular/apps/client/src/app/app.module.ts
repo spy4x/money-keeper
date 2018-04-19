@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CoreModule} from './+core/core.module';
-import {AppComponent} from './app.component';
 import {SharedModule} from './+shared/shared.module';
+import {AppComponent} from './app.component';
 
 
 @NgModule({
@@ -19,5 +19,3 @@ import {SharedModule} from './+shared/shared.module';
 })
 export class AppModule {
 }
-
-// throw new Error('123');
