@@ -11,5 +11,5 @@ export interface Group {
     [key:string]: 'owner' | 'write' | 'read'
   };
   defaultCurrency: DocumentReference;
-  createdAt?: Date;
+  createdAt: Date;
 }
