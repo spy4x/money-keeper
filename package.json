@@ -7,7 +7,13 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "postinstall": "chmod 744 pre-commit && cp pre-commit .git/hooks/pre-commit && ./node_modules/.bin/nx postinstall"
+    "start": "npm run serve:browser",
+    "postinstall": "chmod 744 pre-commit && cp pre-commit .git/hooks/pre-commit",
+    "format": "prettier {angular,firebase}/**/*.ts --write",
+    "serve:browser": "npm --prefix angular run start",
+    "serve:server": "npm run build && firebase serve",
+    "build": "npm --prefix angular run build && cd firebase/functions && npm run lint && npm run build",
+    "deploy": "firebase deploy"
   },
   "devDependencies": {
     "firebase": "^4.11.0",
