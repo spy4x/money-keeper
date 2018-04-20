@@ -8,10 +8,9 @@
   "private": false,
   "scripts": {
     "start": "npm run serve:browser",
-    "postinstall": "chmod 744 pre-commit.bash && cp pre-commit.bash .git/hooks/pre-commit",
     "serve:browser": "npm --prefix angular run start",
     "serve:server": "npm run build && firebase serve",
-    "format:all": "prettier {angular,firebase}/**/*.ts --write",
+    "format:all": "pretty-quick --staged",
     "lint:all": "npm run lint:angular && npm run lint:functions",
     "lint:angular": "npm --prefix angular run lint",
     "lint:functions": "npm --prefix \"firebase/functions\" run lint",
@@ -23,8 +22,15 @@
     "pre-deploy:functions": "npm run lint:functions && npm run build:functions",
     "deploy": "firebase deploy"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "chmod 744 pre-commit.bash && ./pre-commit.bash"
+    }
+  },
   "devDependencies": {
     "firebase": "^4.13.0",
-    "prettier": "^1.12.1"
+    "husky": "^1.0.0-rc.1",
+    "prettier": "^1.12.1",
+    "pretty-quick": "^1.4.1"
   }
 }
