@@ -3,7 +3,7 @@ import {
   generateActionType,
   setStateProperties,
 } from '../../../../+shared/helpers/state.helper';
-import { Category } from '../../../../../../../../../+shared/types/category.interface';
+import { Category } from '@root/+shared/types/category.interface';
 import { FEATURE_NAME } from '../../../+store/module';
 import { ProtectedState } from '../../../+store/state';
 

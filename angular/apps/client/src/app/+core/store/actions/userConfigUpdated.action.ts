@@ -3,7 +3,7 @@ import {
   generateActionType,
   setStateProperties,
 } from '../../../+shared/helpers/state.helper';
-import { UserConfig } from '../../../../../../../../+shared/types/userConfig.interface';
+import { UserConfig } from '@root/+shared/types/userConfig.interface';
 import { CoreState } from '../core.state';
 import { FEATURE_NAME } from '../module';
 

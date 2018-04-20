@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../+core/store/app.state';
-import { Tag } from '../../../../../../../+shared/types/tag.interface';
+import { Tag } from '@root/+shared/types/tag.interface';
 import { getTagsForActiveGroup } from '../expenses/+store/selectors';
 import { TagsCreateAction } from './+store/actions/create.action';
 import { TagsEditAction } from './+store/actions/edit.action';

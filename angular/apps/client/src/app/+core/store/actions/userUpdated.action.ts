@@ -5,7 +5,7 @@ import {
 } from '../../../+shared/helpers/state.helper';
 import { FEATURE_NAME } from '../module';
 import { CoreState } from '../core.state';
-import { User } from '../../../../../../../../+shared/types/user.interface';
+import { User } from '@root/+shared/types/user.interface';
 
 const type = generateActionType(FEATURE_NAME, 'User updated');
 

@@ -16,7 +16,10 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@money-keeper/*": [
+      "@root/*": [
+        "../*"
+      ],
+      "@libs/*": [
         "libs/*"
       ]
     }

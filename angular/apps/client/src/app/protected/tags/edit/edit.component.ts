@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '../../../+shared/helpers/forms.helper';
-import { Tag } from '../../../../../../../../+shared/types/tag.interface';
+import { Tag } from '@root/+shared/types/tag.interface';
 
 @Component({
   selector: 'mk-tags-edit',

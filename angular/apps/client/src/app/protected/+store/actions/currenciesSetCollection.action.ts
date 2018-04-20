@@ -3,7 +3,7 @@ import {
   generateActionType,
   setStateProperties,
 } from '../../../+shared/helpers/state.helper';
-import { Currency } from '../../../../../../../../+shared/types/currency.interface';
+import { Currency } from '@root/+shared/types/currency.interface';
 import { FEATURE_NAME } from '../module';
 import { ProtectedState } from '../state';
 

@@ -13,7 +13,7 @@ import {
   BaseAction,
   generateActionType,
 } from '../../../../+shared/helpers/state.helper';
-import { Tag } from '../../../../../../../../../+shared/types/tag.interface';
+import { Tag } from '@root/+shared/types/tag.interface';
 
 const type = generateActionType(FEATURE_NAME, 'Tags - create');
 

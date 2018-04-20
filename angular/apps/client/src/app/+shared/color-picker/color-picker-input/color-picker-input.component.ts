@@ -63,7 +63,7 @@ export class ColorPickerInputComponent
     });
     // Setting the value accessor directly (instead of using
     // the providers) to avoid running into a circular import.
-    if (this.ngControl != null) {
+    if (this.ngControl !== null) {
       this.ngControl.valueAccessor = this;
     }
   }
@@ -151,7 +151,7 @@ export class ColorPickerInputComponent
   }
 
   onContainerClick(event: MouseEvent): void {
-    if ((event.target as Element).tagName.toLowerCase() != 'button') {
+    if ((event.target as Element).tagName.toLowerCase() !== 'button') {
       this.elRef.nativeElement.querySelector('button').focus();
     }
     this.openDialog();

@@ -2,8 +2,8 @@
 
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import { User } from '../../../+shared/types/user.interface';
-import { UserConfig } from '../../../+shared/types/userConfig.interface';
+import { User } from '@root/+shared/types/user.interface';
+import { UserConfig } from '@root/+shared/types/userConfig.interface';
 
 admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();

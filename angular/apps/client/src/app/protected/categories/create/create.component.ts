@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { CategoriesCreateAction } from '../+store/actions/create.action';
 import { AppState } from '../../../+core/store/app.state';
 import { MyErrorStateMatcher } from '../../../+shared/helpers/forms.helper';
-import { Category } from '../../../../../../../../+shared/types/category.interface';
+import { Category } from '@root/+shared/types/category.interface';
 
 @Component({
   selector: 'mk-categories-create',

@@ -42,7 +42,7 @@ export class ColorPickerInlineComponent
   propagateChange = (_: any) => {};
   selectedColor: RGB;
   @Output() changed = new EventEmitter<string>();
-  opacity: number = 65;
+  opacity = 65;
   sub = new Subscription();
   private colors: RGB[] = [
     {

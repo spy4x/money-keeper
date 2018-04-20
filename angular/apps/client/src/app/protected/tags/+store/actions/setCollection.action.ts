@@ -5,7 +5,7 @@ import {
 } from '../../../../+shared/helpers/state.helper';
 import { FEATURE_NAME } from '../../../+store/module';
 import { ProtectedState } from '../../../+store/state';
-import { Tag } from '../../../../../../../../../+shared/types/tag.interface';
+import { Tag } from '@root/+shared/types/tag.interface';
 
 const type = generateActionType(FEATURE_NAME, 'Tags - Set collection');
 

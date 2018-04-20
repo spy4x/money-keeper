@@ -10,11 +10,11 @@ import {
   BaseAction,
   generateActionType,
 } from '../../../+shared/helpers/state.helper';
-import { Group } from '../../../../../../../../+shared/types/group.interface';
+import { Group } from '@root/+shared/types/group.interface';
 import { FEATURE_NAME } from '../module';
 import { ProtectedState } from '../state';
 import { GroupsSetCollectionAction } from './groupsSetCollection.action';
-import { Currency } from '../../../../../../../../+shared/types/currency.interface';
+import { Currency } from '@root/+shared/types/currency.interface';
 import { CurrenciesSetCollectionAction } from './currenciesSetCollection.action';
 
 const type = generateActionType(FEATURE_NAME, 'Init');

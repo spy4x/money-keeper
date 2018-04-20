@@ -1,5 +1,5 @@
-import { User } from '../../../../../../../+shared/types/user.interface';
-import { UserConfig } from '../../../../../../../+shared/types/userConfig.interface';
+import { User } from '@root/+shared/types/user.interface';
+import { UserConfig } from '@root/+shared/types/userConfig.interface';
 import { AuthState } from './types/authState.enum';
 
 export interface CoreState {

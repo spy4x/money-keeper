@@ -9,13 +9,13 @@ import {
   generateActionType,
   setStateProperties,
 } from '../../../+shared/helpers/state.helper';
-import { Group } from '../../../../../../../../+shared/types/group.interface';
-import { User } from '../../../../../../../../+shared/types/user.interface';
+import { Group } from '@root/+shared/types/group.interface';
+import { User } from '@root/+shared/types/user.interface';
 import { FEATURE_NAME } from '../module';
 import { ProtectedState } from '../state';
 import { GroupsSetActiveItemIdAction } from './groupsSetActiveItemId.action';
 import { LoadGroupDataAction } from './loadGroupData.action';
-import { UserConfig } from '../../../../../../../../+shared/types/userConfig.interface';
+import { UserConfig } from '@root/+shared/types/userConfig.interface';
 
 const type = generateActionType(FEATURE_NAME, 'Set groups');
 

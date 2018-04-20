@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { getActiveGroup, getProtectedState } from '../../+store/selectors';
 import { getActiveGroupId } from '../../../+core/store/selectors';
-import { Expense } from '../../../../../../../../+shared/types/expense.interface';
+import { Expense } from '@root/+shared/types/expense.interface';
 
 // Users
 

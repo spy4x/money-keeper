@@ -26,8 +26,8 @@ import { getActiveGroup, getGroups } from '../../+store/selectors';
 import { AppState } from '../../../+core/store/app.state';
 import { getUser } from '../../../+core/store/selectors';
 import { MyErrorStateMatcher } from '../../../+shared/helpers/forms.helper';
-import { Expense } from '../../../../../../../../+shared/types/expense.interface';
-import { Group } from '../../../../../../../../+shared/types/group.interface';
+import { Expense } from '@root/+shared/types/expense.interface';
+import { Group } from '@root/+shared/types/group.interface';
 
 @Component({
   selector: 'mk-expenses-editor',

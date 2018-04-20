@@ -15,7 +15,7 @@ import {
   BaseAction,
   generateActionType,
 } from '../../../../+shared/helpers/state.helper';
-import { Category } from '../../../../../../../../../+shared/types/category.interface';
+import { Category } from '@root/+shared/types/category.interface';
 
 const type = generateActionType(FEATURE_NAME, 'Categories - create');
 

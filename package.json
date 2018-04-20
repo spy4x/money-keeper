@@ -8,15 +8,23 @@
   "private": false,
   "scripts": {
     "start": "npm run serve:browser",
-    "postinstall": "chmod 744 pre-commit && cp pre-commit .git/hooks/pre-commit",
-    "format": "prettier {angular,firebase}/**/*.ts --write",
+    "postinstall": "chmod 744 pre-commit.bash && cp pre-commit.bash .git/hooks/pre-commit",
     "serve:browser": "npm --prefix angular run start",
     "serve:server": "npm run build && firebase serve",
-    "build": "npm --prefix angular run build && cd firebase/functions && npm run lint && npm run build",
+    "format:all": "prettier {angular,firebase}/**/*.ts --write",
+    "lint:all": "npm run lint:angular && npm run lint:functions",
+    "lint:angular": "npm --prefix angular run lint",
+    "lint:functions": "npm --prefix \"firebase/functions\" run lint",
+    "build:all": "npm run build:angular && npm run build:functions",
+    "build:angular": "npm --prefix angular run build",
+    "build:functions": "npm --prefix \"firebase/functions\" run build",
+    "pre-deploy:all": "npm run predeploy:angular && npm run predeploy:functions",
+    "pre-deploy:angular": "npm run lint:angular && npm run build:angular",
+    "pre-deploy:functions": "npm run lint:functions && npm run build:functions",
     "deploy": "firebase deploy"
   },
   "devDependencies": {
-    "firebase": "^4.11.0",
-    "prettier": "^1.11.1"
+    "firebase": "^4.13.0",
+    "prettier": "^1.12.1"
   }
 }

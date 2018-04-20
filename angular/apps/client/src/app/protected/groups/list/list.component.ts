@@ -11,7 +11,7 @@ import { GroupsSetActiveItemIdAction } from '../../+store/actions/groupsSetActiv
 import { getActiveGroup, getGroups } from '../../+store/selectors';
 import { AppState } from '../../../+core/store/app.state';
 import { getUser } from '../../../+core/store/selectors';
-import { Group } from '../../../../../../../../+shared/types/group.interface';
+import { Group } from '@root/+shared/types/group.interface';
 
 @Component({
   selector: 'mk-groups-list',

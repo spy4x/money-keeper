@@ -17,7 +17,7 @@
                placeholder="Amount"
                name="value"
                type="number"
-               [autofocus]="!expenseId">
+               [mkAutofocus]="!expenseId">
         <mat-error *ngIf="form.controls['value'].hasError('required')">
           Field is <strong>required</strong>
         </mat-error>

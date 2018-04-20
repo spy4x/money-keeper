@@ -17,10 +17,10 @@ import {
 } from '../+store/selectors';
 import { getActiveGroup } from '../../+store/selectors';
 import { AppState } from '../../../+core/store/app.state';
-import { User } from '../../../../../../../../+shared/types/user.interface';
+import { User } from '@root/+shared/types/user.interface';
 import DocumentReference = firebase.firestore.DocumentReference;
-import { Category } from '../../../../../../../../+shared/types/category.interface';
-import { Tag } from '../../../../../../../../+shared/types/tag.interface';
+import { Category } from '@root/+shared/types/category.interface';
+import { Tag } from '@root/+shared/types/tag.interface';
 
 @Component({
   selector: 'mk-expenses-list',
@@ -46,7 +46,7 @@ export class ListComponent {
       select(getCurrenciesItems),
       map(items => items[currency.id]),
       filter(v => !!v),
-      map(currency => currency.symbol),
+      map(c => c.symbol),
     );
   }
 

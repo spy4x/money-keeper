@@ -5,7 +5,7 @@ import {
 } from '../../../../+shared/helpers/state.helper';
 import { FEATURE_NAME } from '../../../+store/module';
 import { ProtectedState } from '../../../+store/state';
-import { Expense } from '../../../../../../../../../+shared/types/expense.interface';
+import { Expense } from '@root/+shared/types/expense.interface';
 
 const type = generateActionType(FEATURE_NAME, 'Expenses - Set collection');
 

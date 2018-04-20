@@ -5,7 +5,7 @@ import {
   generateActionType,
   setStateProperties,
 } from '../../../+shared/helpers/state.helper';
-import { User } from '../../../../../../../../+shared/types/user.interface';
+import { User } from '@root/+shared/types/user.interface';
 
 const type = generateActionType(FEATURE_NAME, 'Users - Set collection');
 

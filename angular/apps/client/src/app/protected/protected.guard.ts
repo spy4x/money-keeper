@@ -21,8 +21,8 @@ export class ProtectedGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
     return this.store.pipe(
       select(isAuthenticated),
-      map(isAuthenticated => {
-        if (!isAuthenticated) {
+      map(isAuth => {
+        if (!isAuth) {
           this.router.navigate(['/public']);
           return false;
         }

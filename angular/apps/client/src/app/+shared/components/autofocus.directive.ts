@@ -1,14 +1,14 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[autofocus]',
+  selector: '[mkAutofocus]',
 })
 export class AutofocusDirective implements OnInit {
   constructor(private el: ElementRef) {}
 
   private _autofocus;
 
-  @Input()
+  @Input('mkAutofocus')
   set autofocus(condition: boolean) {
     this._autofocus = condition !== false;
   }

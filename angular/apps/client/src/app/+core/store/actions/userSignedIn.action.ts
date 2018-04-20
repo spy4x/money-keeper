@@ -6,7 +6,7 @@ import {
   generateActionType,
   setStateProperties,
 } from '../../../+shared/helpers/state.helper';
-import { User } from '../../../../../../../../+shared/types/user.interface';
+import { User } from '@root/+shared/types/user.interface';
 import { ProtectedInitAction } from '../../../protected/+store/actions/init.action';
 import { CoreState } from '../core.state';
 import { FEATURE_NAME } from '../module';

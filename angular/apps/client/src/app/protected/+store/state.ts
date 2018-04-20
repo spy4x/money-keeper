@@ -1,9 +1,9 @@
-import { Category } from '../../../../../../../+shared/types/category.interface';
-import { Currency } from '../../../../../../../+shared/types/currency.interface';
-import { Expense } from '../../../../../../../+shared/types/expense.interface';
-import { Group } from '../../../../../../../+shared/types/group.interface';
-import { Tag } from '../../../../../../../+shared/types/tag.interface';
-import { User } from '../../../../../../../+shared/types/user.interface';
+import { Category } from '@root/+shared/types/category.interface';
+import { Currency } from '@root/+shared/types/currency.interface';
+import { Expense } from '@root/+shared/types/expense.interface';
+import { Group } from '@root/+shared/types/group.interface';
+import { Tag } from '@root/+shared/types/tag.interface';
+import { User } from '@root/+shared/types/user.interface';
 
 export type DeviceType = 'mobile' | 'tablet' | 'desktop';
 

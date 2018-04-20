@@ -8,13 +8,21 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 
-#printf "${BLUE}Lint code${NC}"
-#npm run lint
-#EXIT_CODE=$?
-#if [[ ${EXIT_CODE} -ne 0 ]]; then
-#  printf "${RED}Lint failed${NC}\n"
-#  exit 1
-#fi
+printf "${BLUE}Format code${NC}"
+npm run format:all
+EXIT_CODE=$?
+if [[ ${EXIT_CODE} -ne 0 ]]; then
+  printf "${RED}Format failed${NC}\n"
+  exit 1
+fi
+
+printf "${BLUE}Lint code${NC}"
+npm run lint:all
+EXIT_CODE=$?
+if [[ ${EXIT_CODE} -ne 0 ]]; then
+  printf "${RED}Lint failed${NC}\n"
+  exit 1
+fi
 
 
 #printf "${BLUE}Run unit-tests${NC}"
@@ -36,7 +44,7 @@ NC='\033[0m' # No Color
 
 
 printf "${BLUE}Test build${NC}"
-npm run build
+npm run build:all
 EXIT_CODE=$?
 if [[ ${EXIT_CODE} -ne 0 ]]; then
   printf "${RED}Build failed${NC}\n"

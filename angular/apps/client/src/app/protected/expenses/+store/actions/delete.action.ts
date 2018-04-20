@@ -14,7 +14,7 @@ import {
   BaseAction,
   generateActionType,
 } from '../../../../+shared/helpers/state.helper';
-import { Expense } from '../../../../../../../../../+shared/types/expense.interface';
+import { Expense } from '@root/+shared/types/expense.interface';
 import { getCurrenciesItems } from '../selectors';
 
 const type = generateActionType(FEATURE_NAME, 'Expenses - delete');
