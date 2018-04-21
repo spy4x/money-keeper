@@ -11,7 +11,7 @@ const db = admin.firestore();
 export const createDataStructureForNewUser = functions.auth
   .user()
   .onCreate(async event => {
-    const user = event.data;
+    const user = event;
     const userPath = `users/${user.uid}`;
     const groupPath = `groups/${user.uid}`;
     const userConfigPath = `usersConfigs/${user.uid}`;
