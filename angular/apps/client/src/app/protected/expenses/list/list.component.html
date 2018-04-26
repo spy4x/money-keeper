@@ -33,7 +33,7 @@
 
 <ng-container [ngSwitch]="mode">
   <ng-container *ngSwitchCase="'logs'">
-    <div class="content-wrapper">
+    <div class="content-wrapper content-wrapper--no-initial-padding">
       <div class="days">
         <mat-card class="day mat-elevation-z1" *ngFor="let expenseGroup of expensesGroup$ | async">
           <h4 class="date">
