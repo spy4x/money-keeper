@@ -4,6 +4,7 @@ import { Expense } from '@root/+shared/types/expense.interface';
 import { Group } from '@root/+shared/types/group.interface';
 import { Tag } from '@root/+shared/types/tag.interface';
 import { User } from '@root/+shared/types/user.interface';
+import { Observable } from 'rxjs/Observable';
 
 export type DeviceType = 'mobile' | 'tablet' | 'desktop';
 
@@ -11,6 +12,10 @@ export interface ProtectedState {
   ui: {
     isMenuOpened: boolean;
     deviceType: DeviceType;
+  };
+  profile: {
+    isAvatarUploadInProgress: boolean;
+    uploadProgress$: Observable<number>;
   };
   currencies: {
     ids: string[];
@@ -48,6 +53,10 @@ export const ProtectedStateInitial: ProtectedState = {
   ui: {
     isMenuOpened: false,
     deviceType: 'mobile',
+  },
+  profile: {
+    isAvatarUploadInProgress: false,
+    uploadProgress$: null,
   },
   currencies: {
     ids: [],

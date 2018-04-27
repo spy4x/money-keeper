@@ -6,11 +6,81 @@
   </button>
 </mk-header>
 
-<div *ngIf="user$ | async as user">
-  <p>Display name: {{user.displayName}}</p>
-  <p>Email: {{user.email}}</p>
-  <p>Avatar:</p>
-  <img [src]="user.photoURL" width="280">
-  <input type="file" (change)="uploadFile($event, user.id)">
-  <div>{{ uploadPercent | async }}</div>
+
+<div *ngIf="user$ | async as user" class="content-wrapper">
+
+  <div class="flex-row">
+    <div class="avatar-editor">
+      <img [src]="user.photoURL" class="avatar avatar--lg">
+      <div class="avatar-editor__background">
+        <mat-icon>edit</mat-icon>
+      </div>
+      <input class="avatar-editor__input"
+             type="file"
+             (change)="uploadFile($event)"
+             title="Click to upload new photo">
+      <div *ngIf="isAvatarUploadInProgress$ | async">
+        <p class="m-b-05 m-t-05 text-center">Uploading...</p>
+        <mat-progress-bar mode="determinate"
+                          [value]="uploadProgress$ | async | async"></mat-progress-bar>
+      </div>
+    </div>
+    <div class="profile-form">
+      <form [formGroup]="form"
+            id="form"
+            (ngSubmit)="submit()"
+            novalidate>
+        <mat-form-field>
+          <input matInput
+                 label="Display name"
+                 formControlName="displayName"
+                 placeholder="Display name"
+                 name="displayName"
+                 type="text">
+          <mat-error *ngIf="form.controls['displayName'].hasError('required')">
+            Field is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput
+                 label="Email"
+                 formControlName="email"
+                 placeholder="Email"
+                 name="email"
+                 type="text">
+          <mat-error *ngIf="form.controls['email'].hasError()">
+            Valid email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </form>
+
+      <mat-divider></mat-divider>
+
+      <div class="actions">
+        <button mat-button
+                type="button"
+                (click)="cancel()"
+                [disabled]="isCancelDisabled()">
+          CANCEL
+        </button>
+
+        <button mat-button
+                type="submit"
+                [disabled]="form.invalid"
+                form="form">
+          SAVE
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+<!--<div *ngIf="user$ | async as user">-->
+<!--<p>Display name: {{user.displayName}}</p>-->
+<!--<p>Email: {{user.email}}</p>-->
+<!--<p>Avatar:</p>-->
+<!--<img [src]="user.photoURL" width="280">-->
+<!--<input type="file" (change)="uploadFile($event, user.id)">-->
+<!--<div>{{ uploadPercent | async }}</div>-->
+<!--</div>-->

@@ -13,6 +13,7 @@ import { environment } from '../../environments/environment';
 import { CoreRoutingModule } from './core-routing.module';
 import { CoreStoreModule } from './store/module';
 import { UserService } from './user/user.service';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { UserService } from './user/user.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
+    AngularFireStorageModule,
     CoreStoreModule,
     SharedModule,
   ],
