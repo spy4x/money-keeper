@@ -19,6 +19,9 @@
       "@root/*": [
         "../*"
       ],
+      "@client/*": [
+        "apps/client/src/app/*"
+      ],
       "@libs/*": [
         "libs/*"
       ]

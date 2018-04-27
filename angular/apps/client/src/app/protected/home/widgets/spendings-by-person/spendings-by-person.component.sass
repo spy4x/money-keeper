@@ -1,0 +1,19 @@
+mk-widget-spendings-by-person
+  display: block
+  height: 300px
+  position: relative
+  @media screen and (max-width: 767px)
+    height: 200px
+  ngx-charts-advanced-pie-chart .advanced-pie-legend-wrapper .legend-item .item-value
+    margin-top: -3px !important // fix for overflow value
+  .currency-selectors
+    position: absolute
+    $button-size: 36px
+    top: calc(50% - #{$button-size})
+    right: 0
+    .selector
+      font-weight: bold
+      font-size: 24px
+      width: $button-size
+      min-width: $button-size
+      padding: 0

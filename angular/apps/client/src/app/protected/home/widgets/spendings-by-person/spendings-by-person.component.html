@@ -1,0 +1,18 @@
+<ngx-charts-advanced-pie-chart
+  [results]="spendingsByPerson$ | async"
+  [animations]="true"
+  [gradient]="false"
+  [label]="(selectedCurrency$ | async)?.symbol"
+  [tooltipText]="tooltipFormatting"
+  [nameFormatting]="nameFormatting"
+  [valueFormatting]="valueFormatting"
+></ngx-charts-advanced-pie-chart>
+<div *ngIf="availableCurrenciesItems?.length > 1" class="currency-selectors">
+  <button *ngFor="let currency of availableCurrenciesItems"
+          (click)="selectedCurrency$.next(currency)"
+          mat-button
+          class="selector"
+          [color]="(selectedCurrency$ | async)?.id === currency.id ? 'primary' : 'default'">
+    {{currency.symbol}}
+  </button>
+</div>

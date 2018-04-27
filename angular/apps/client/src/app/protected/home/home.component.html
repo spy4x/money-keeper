@@ -2,29 +2,32 @@
   <span>Home</span>
 </mk-header>
 
-<div class="items">
-  <div *ngFor="let category of categories$ | async"
-       (click)="addExpense(category)"
-       class="item">
-    <button mat-fab>
-      <mat-icon>{{category.icon}}</mat-icon>
-    </button>
-    <span>{{category.name | truncate:9}}</span>
+<div class="content-wrapper">
+  <div class="statistics">
+    <h3 class="text-center">Current month</h3>
+    <mk-widget-spendings-by-person></mk-widget-spendings-by-person>
   </div>
-  <div class="item">
-    <button mat-fab
-            color="grey"
-            class="add-category-button"
-            (click)="addCategory()">
-      <mat-icon>add</mat-icon>
-    </button>
-    <span>Add</span>
-  </div>
-</div>
 
-<div class="actions">
-  <button mat-raised-button color="primary" routerLink="/expenses/create"
-          class="main-action-button">
-    ADD EXPENSE
-  </button>
+  <div class="add-expenses">
+    <h3 class="text-center">Add expense</h3>
+    <div class="items">
+      <div *ngFor="let category of categories$ | async"
+           (click)="addExpense(category)"
+           class="item">
+        <button mat-fab>
+          <mat-icon>{{category.icon}}</mat-icon>
+        </button>
+        <span>{{category.name | truncate:9}}</span>
+      </div>
+      <div class="item">
+        <button mat-fab
+                color="grey"
+                class="add-category-button mat-elevation-z2"
+                (click)="addCategory()">
+          <mat-icon>add</mat-icon>
+        </button>
+        <span>Category</span>
+      </div>
+    </div>
+  </div>
 </div>

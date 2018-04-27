@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ColorPickerDialogComponent } from './color-picker/color-picker-dialog/color-picker-dialog.component';
 import { ColorPickerInlineComponent } from './color-picker/color-picker-inline/color-picker-inline.component';
 import { ColorPickerInputComponent } from './color-picker/color-picker-input/color-picker-input.component';
@@ -25,6 +26,7 @@ const entryComponents = [ColorPickerDialogComponent];
   exports: [
     CommonModule,
     MaterialModule,
+    NgxChartsModule,
     ReactiveFormsModule,
     RouterModule,
     AutofocusDirective,
