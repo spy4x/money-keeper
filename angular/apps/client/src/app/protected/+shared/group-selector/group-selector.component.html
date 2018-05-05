@@ -1,0 +1,12 @@
+<mat-form-field>
+  <mat-select placeholder="Group" [formControl]="control" panelClass="select--group">
+    <mat-option *ngFor="let group of groups$ | async" [value]="group?.id">
+      <ng-container *ngIf="group.isPersonal; else sharedGroup">
+        <img class="avatar avatar--sm" [src]="(user$ | async)?.photoURL"><span>Personal expenses</span>
+      </ng-container>
+      <ng-template #sharedGroup>
+        <img class="avatar avatar--sm" [src]="group.photoURL"><span>{{group.name}}</span>
+      </ng-template>
+    </mat-option>
+  </mat-select>
+</mat-form-field>
