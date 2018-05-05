@@ -7,8 +7,20 @@ mk-protected-home
   .content-wrapper
     justify-content: space-between
     .statistics
+      position: relative
       @media screen and (min-width: 768px)
         order: 2
+      .widgets-wrapper
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+        > *
+          width: 100%
+      .chart-selector
+        position: absolute
+        top: 0
+        left: 0
     .add-expenses
       @media screen and (min-width: 768px)
         order: 1

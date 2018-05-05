@@ -37,7 +37,7 @@
       <div class="days">
         <mat-card class="day mat-elevation-z1" *ngFor="let expenseGroup of expensesGroup$ | async">
           <h4 class="date">
-            <span>{{expenseGroup.date | date:'d LLLL'}}</span>
+            <span>{{expenseGroup.date | date:'d LLLL - EEEE'}}</span>
             <span>Total:
               <span *ngFor="let currencyTotal of expenseGroup.total; let last = last">
                 {{currencyTotal.total}}{{getCurrencySymbol$({id:currencyTotal.currencyId}) | async}}{{last ? '' : ', '}}

@@ -1,0 +1,43 @@
+<button mat-raised-button [matMenuTriggerFor]="menu" class="mode-selector">
+  <span>{{(mode$ | async) === Mode.monthly ? 'Total' : Mode.daily}}</span>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="mode$.next(Mode.monthly)">
+    <span>Total</span>
+  </button>
+  <button mat-menu-item (click)="mode$.next(Mode.daily)">
+    <span>{{Mode.daily}}</span>
+  </button>
+</mat-menu>
+
+<div class="chart-wrapper">
+  <ngx-charts-line-chart
+    [results]="spendingsToLimit$ | async"
+    [xAxis]="true"
+    [yAxis]="true"
+    [showRefLines]="true"
+    [showRefLabels]="true"
+    [referenceLines]="refLines"
+    [xAxisTickFormatting]="formatDateString"
+  >
+    <ng-template #seriesTooltipTemplate let-model="model">
+      <div class="area-tooltip-container mk-widget-spendings-to-limit-tooltip">
+        <h3 class="text-left m-t-0 m-b-0">{{model[0].name | date : 'd MMMM - EEEE'}}</h3>
+        <hr/>
+        <div *ngFor="let item of model" class="tooltip-item">
+          <span class="tooltip-item-color" [style.background-color]="item.color"></span>
+          {{allCurrenciesItems[item.series].symbol}} • {{item.value}}
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #tooltipTemplate let-model="model">
+      <div class="area-tooltip-container mk-widget-spendings-to-limit-tooltip">
+        <h3 class="text-left m-t-0 m-b-0">{{model.name | date : 'd MMMM - EEEE'}}</h3>
+        <hr/>
+        <div class="tooltip-item">
+          {{allCurrenciesItems[model.series].symbol}} • {{model.value}}
+        </div>
+      </div>
+    </ng-template>
+  </ngx-charts-line-chart>
+</div>

@@ -2,8 +2,7 @@ mk-widget-spendings-by-person
   display: block
   height: 300px
   position: relative
-  @media screen and (max-width: 767px)
-    height: 200px
+  overflow: hidden
   ngx-charts-advanced-pie-chart .advanced-pie-legend-wrapper .legend-item .item-value
     margin-top: -3px !important // fix for overflow value
   .currency-selectors
@@ -12,8 +11,7 @@ mk-widget-spendings-by-person
     top: calc(50% - #{$button-size})
     right: 0
     .selector
-      font-weight: bold
-      font-size: 24px
+      font-size: 20px
       width: $button-size
       min-width: $button-size
       padding: 0

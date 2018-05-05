@@ -4,8 +4,25 @@
 
 <div class="content-wrapper">
   <div class="statistics">
-    <h3 class="text-center">Current month</h3>
-    <mk-widget-spendings-by-person></mk-widget-spendings-by-person>
+    <h2 class="text-center m-t-0 p-t-05">{{today | date: 'MMMM'}}</h2>
+    <button mat-raised-button [matMenuTriggerFor]="menu" class="chart-selector">
+      <mat-icon>{{widget === Widgets.spedingsByPerson ? 'pie_chart' : 'show_chart'}}</mat-icon>
+      <span>{{widget === Widgets.spedingsByPerson ? 'By person' : 'By time'}}</span>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="setWidget(Widgets.spedingsToLimit)">
+        <mat-icon>show_chart</mat-icon>
+        <span>By time</span>
+      </button>
+      <button mat-menu-item (click)="setWidget(Widgets.spedingsByPerson)">
+        <mat-icon>pie_chart</mat-icon>
+        <span>By person</span>
+      </button>
+    </mat-menu>
+    <div class="widgets-wrapper" [ngSwitch]="widget">
+      <mk-widget-spendings-by-person *ngSwitchCase="Widgets.spedingsByPerson"></mk-widget-spendings-by-person>
+      <mk-widget-spendings-to-limit *ngSwitchCase="Widgets.spedingsToLimit"></mk-widget-spendings-to-limit>
+    </div>
   </div>
 
   <div class="add-expenses">

@@ -2,6 +2,8 @@ import { createSelector } from '@ngrx/store';
 import { getActiveGroup, getProtectedState } from '../../+store/selectors';
 import { getActiveGroupId } from '../../../+core/store/selectors';
 import { Expense } from '@root/+shared/types/expense.interface';
+import { sortExpensesByDate } from '@client/+shared/helpers/sort.helper';
+import { roundMoney } from '@client/+shared/helpers/math.helper';
 
 // Users
 
@@ -133,7 +135,7 @@ export const getExpensesForActiveGroupGroupedAndSortedByDate = createSelector(
   getExpensesForActiveGroup,
   expenses => {
     const groupedExpenses = expenses
-      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)) // sort expenses by date
+      .sort(sortExpensesByDate('desc'))
       .reduce((acc, cur) => {
         const year = cur.createdAt.getFullYear();
         const monthNumber = cur.createdAt.getMonth() + 1;
@@ -165,7 +167,7 @@ export const getExpensesForActiveGroupGroupedAndSortedByDate = createSelector(
         };
 
         result.total = Object.keys(result.total).map(currencyId => {
-          const roundedTotal = Math.round(result.total[currencyId] * 100) / 100;
+          const roundedTotal = roundMoney(result.total[currencyId]);
           return { currencyId, total: roundedTotal };
         });
         return result;
