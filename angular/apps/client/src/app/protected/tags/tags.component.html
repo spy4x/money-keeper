@@ -14,11 +14,11 @@
         </button>
         <mat-menu #appMenu="matMenu" xPosition="before">
           <ng-template matMenuContent>
-            <button mat-menu-item (click)="edit(tag)">
+            <button mat-menu-item type="button" (click)="edit(tag)">
               <mat-icon>edit</mat-icon>
               <span>Edit</span>
             </button>
-            <button mat-menu-item (click)="remove(tag)">
+            <button mat-menu-item type="button" (click)="remove(tag)">
               <mat-icon>delete</mat-icon>
               <span>Delete</span>
             </button>

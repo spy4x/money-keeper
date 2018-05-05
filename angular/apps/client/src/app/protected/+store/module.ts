@@ -18,6 +18,7 @@ import { ProtectedInitActionEffect } from './actions/init.action';
 import { LoadGroupDataActionEffect } from './actions/loadGroupData.action';
 import { UISetDeviceTypeActionEffect } from './actions/uiSetDeviceType.action';
 import { ProtectedState, ProtectedStateInitial } from './state';
+import { TagsDeleteActionEffect } from '@client/protected/tags/+store/actions/delete.action';
 
 export const FEATURE_NAME = 'protected';
 
@@ -47,6 +48,7 @@ export function ProtectedReducer(
       ExpensesDeleteActionEffect,
       TagsCreateActionEffect,
       TagsEditActionEffect,
+      TagsDeleteActionEffect,
       UISetDeviceTypeActionEffect,
       ProfileUpdateActionEffect,
       ProfileAvatarUploadActionEffect,

@@ -10,13 +10,13 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
+import { TagsDeleteAction } from '@client/protected/tags/+store/actions/delete.action';
 import { select, Store } from '@ngrx/store';
-import { AppState } from '../../+core/store/app.state';
 import { Tag } from '@root/+shared/types/tag.interface';
+import { AppState } from '../../+core/store/app.state';
 import { getTagsForActiveGroup } from '../expenses/+store/selectors';
 import { TagsCreateAction } from './+store/actions/create.action';
 import { TagsEditAction } from './+store/actions/edit.action';
-import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'mk-tags',
@@ -56,7 +56,7 @@ export class TagsComponent {
   tags$ = this.store.pipe(select(getTagsForActiveGroup));
   editTag: Tag;
 
-  constructor(private store: Store<AppState>, private snackBar: MatSnackBar) {}
+  constructor(private store: Store<AppState>) {}
 
   create() {
     this.editTag = {
@@ -70,9 +70,7 @@ export class TagsComponent {
   }
 
   remove(tag: Tag) {
-    this.snackBar.open(`Delete tag is not implemented yet`, undefined, {
-      duration: 2500,
-    });
+    this.store.dispatch(new TagsDeleteAction(tag));
   }
 
   onCancelEdit() {
