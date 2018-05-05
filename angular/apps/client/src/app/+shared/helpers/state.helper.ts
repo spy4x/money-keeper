@@ -23,5 +23,6 @@ export function generateActionType(
   if (actionTypes.indexOf(actionType) >= 0) {
     throw new Error(`Action type ${actionType} is not unique.`);
   }
+  actionTypes.push(actionType);
   return actionType;
 }
